@@ -1,0 +1,38 @@
+
+// deps for ubuntu-based systems: libx11-dev libxcursor-dev libxinerama-dev libxi-dev libxrandr-dev $ sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
+
+
+
+/* just example (potential) API speification for a most of the functionality I want to add*/
+
+
+void DrawSomeStuff()
+{
+    while(true)
+    {
+        DrawText("Insert some important data here");                    
+        DrawSphere(pos[3], float size);         
+        
+        EndFrame();                               
+    }
+}
+
+
+int main()
+{
+    
+    DrawText("Hello there");                    // draws text with gui
+    DrawText("Hello, there", colorArray);       // draws colored text
+    DrawGraphData(???);                         // imgui graph display
+
+    DrawSphere(pos[3], float size);             // position, size
+    DrawSphere(pos[3], color[3], float size);   // position, color, size
+
+    DrawParticle(pos[3]);                       // same as sphere -
+    DrawParticle(pos[3], color[3]);             // but a point particle
+
+    LoadComputeShader("computeShader.cs");        // load simplified compute shader
+    LoadComputeShader("computeShader.glsl");      // load a straight glsl shader file
+
+    return 0;
+}
