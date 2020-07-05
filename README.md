@@ -16,4 +16,4 @@ to run the example, go into the Examples directory in terminal and type:
 
 ./ExProject | ./Anim2
 
-- Jim
+-Jim

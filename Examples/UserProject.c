@@ -6,7 +6,6 @@
 */
 
 
-
 int main()
 {
     float arrayA[6] = {7.0f, 2.0f, 3.0f, 4.0f, -4.45f, 8.79f};

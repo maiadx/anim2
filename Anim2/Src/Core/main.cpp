@@ -73,14 +73,12 @@ void PollUserInput()
     }
 
     RunCommand(tokens);     
-  
 }
 
 
 int main()
 {
     Init();
- 
     Renderer::BeginFrame();
     int i = 0;
 
