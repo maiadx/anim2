@@ -64,7 +64,15 @@ void Application::RunCommand(std::vector<std::string>& inputCmd)
 		Renderer::SetBackgroundColor(color);
 
 	} else if(inputCmd[0] == "dt") {   			     		/* draw text */
-
+		
+		std::stringstream ss;
+		for(int i = 1; i < inputCmd.size(); i++)
+		{
+			ss << inputCmd[i] << " ";
+		}
+		Log::Info("recieved text.");
+		Log::Info(ss.str().c_str());
+		gui.DrawUserText(ss.str());
 
 	} else if(inputCmd[0] == "gr") {                            /* graph */
     
@@ -88,6 +96,7 @@ void Application::RunCommand(std::vector<std::string>& inputCmd)
 		Renderer::Submit(frame, frameTime);
 		gui.Update(frame, frameTime);
 		Renderer::End();
+		frame.ClearFrame();
 		frameTime = 0;
 
 		deltaTime = (glfwGetTime() - lastTime);

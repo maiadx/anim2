@@ -8,9 +8,6 @@
 #include <stb_image.h>
 using namespace Anim;
 
-
-
-
 unsigned int AssetManager::GenAssetID()
 {
     return ++currentIDPtr;                                           /* id = 0 is reserved for an ID search failure */
@@ -55,11 +52,6 @@ SPtr<Shader> AssetManager::LoadShader(const std::string& filepath)
     shaderRefs.insert(std::pair<unsigned int, SPtr<Shader>>(assetID, Shader::Create(filepath)));
     shaderFilepaths.insert(std::pair<std::string, unsigned int>(filepath, assetID));
     return shaderRefs[assetID];
-}
-
-SPtr<Shader> AssetManager::GetDefaultShader()
-{
-    return LoadShader("./Resources/Shaders/basic");
 }
 
 SPtr<Texture> AssetManager::LoadTexture(const std::string& filepath, TextureType texType)

@@ -5,8 +5,16 @@ namespace Anim
 {
 class Dock : public EventDispatcher
 {
+    static Dock& Instance()
+    {
+        Dock* dock = new Dock;
+        return *dock;
+    }
+    // bool f_showMenubar;
+    bool f_showSidepanel;
+
 public:
-    Dock();
+    Dock();	
     ~Dock();
 
     static void Init();
@@ -19,15 +27,5 @@ public:
 
     static void DrawUserText(const std::string& msg);
     static void ShowInfoWindow();
-
-private:
-    static Dock& Instance()
-    {
-        Dock* dock = new Dock;
-        return *dock;
-    }
-    // bool f_showMenubar;
-    bool f_showSidepanel;
-    std::vector<const char*> userTextBuffer;
 };
 }

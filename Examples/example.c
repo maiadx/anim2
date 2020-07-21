@@ -1,21 +1,31 @@
 #include <Anim2/Anim.h>
+#include <math.h>
+#include <stdlib.h>
+
+#define NUM_BALLS 300000
 
 int main()
 {
-
-	float position[3] = { -1, -11, 1 };
-	float positionB[3] = { 1, 4, -5 };
-
-	float color[3] = { 0, 0, 1 };
-	float colorB[3] = { 0.5f, 0.0f, 0.0f };
-	
 	float colorBackground[3] = { 0.14f, 0.14f, 0.14f };
-	AnimSetClearColor(colorBackground);
+	AnimSetBackgroundColor(colorBackground);
+	
+	float ballColor[3] = { 0.2f, 0.2f, 0.9f };
+
+	float ballPositions[NUM_BALLS][3];
+
+	for(int i = 0; i < NUM_BALLS; i++)
+	{
+		ballPositions[i][0] = ((20*(float) rand())/RAND_MAX); // = { ((20*(float) rand())/RAND_MAX), ((20*(float) rand())/RAND_MAX), ((20*(float) rand())/RAND_MAX) };
+		ballPositions[i][1] = ((20*(float) rand())/RAND_MAX);
+		ballPositions[i][2] = ((20*(float) rand())/RAND_MAX);
+	}
 
 	while(1)
 	{
-		AnimDrawSphere(position, color, 1.0f);
-		AnimDrawSphere(positionB, colorB, 1.5f);
+		for(int i = 0; i < NUM_BALLS; i++)
+		{
+			AnimDrawSphere(ballPositions[i], ballColor, 0.5f);
+		}
 
 		AnimEndFrame();
 	}

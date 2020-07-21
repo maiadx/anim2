@@ -9,12 +9,19 @@
 #include <imgui_impl_opengl3.h>
 
 
+std::vector<std::string> userTextBuffer;
+
 using namespace Anim;
 //static Renderer* s_renderer = &Renderer::init(1920, 1080, " ", glm::vec3(0,0,0), glm::vec3(0,0,0));
 
 Dock::Dock(){}
 
-Dock::~Dock(){}
+Dock::~Dock()
+{
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
 
 void Dock::Init()
 {
@@ -100,7 +107,6 @@ void Dock::Update(Frame& frame, float dt)
     ImGui::NewFrame();
 
     ShowSidePanel(frame, dt);
-    //ShowMenubar();
     ShowInfoWindow();
 
     //ImGui::ShowDemoWindow();
@@ -166,12 +172,12 @@ void Dock::ShowObjectSubPanel()
 
 void Dock::DrawUserText(const std::string& msg)
 {
-    Instance().userTextBuffer.emplace_back(msg.c_str());
+    userTextBuffer.push_back(msg);
 }
 
 void Dock::ShowInfoWindow()
 {
-    if(Instance().userTextBuffer.size() > 0)
+    if(userTextBuffer.size() > 0)
     {
         bool f_open;
         ImGuiWindowFlags win_flags = 0;
@@ -179,13 +185,16 @@ void Dock::ShowInfoWindow()
         // win_flags |= ImGuiWindowFlags_NoMove;
         // win_flags |= ImGuiWindowFlags_NoResize;
         ImGui::SetNextWindowSize(ImVec2(200,100), ImGuiCond_Always);
-        ImGui::Begin("Debug", &f_open, win_flags);
-        for(unsigned int i = 0; i < Instance().userTextBuffer.size(); i++)
+        ImGui::Begin("UserInfo", &f_open, win_flags);
+        for(unsigned int i = 0; i < userTextBuffer.size(); i++)
         {
-            ImGui::Text(Instance().userTextBuffer[i]);
+            ImGui::Text(userTextBuffer[i].c_str());
         }
-        Instance().userTextBuffer.clear();
+        userTextBuffer.clear();
 
         ImGui::End();
+        Log::Info("logging stuff");
+        userTextBuffer.clear();
+
     }
 }

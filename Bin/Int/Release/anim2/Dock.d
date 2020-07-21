@@ -1,6 +1,6 @@
 ../Bin/Int/Release/anim2/Dock.o: Src/Gui/Dock.cpp Src/Gui/Dock.h \
  Src/Events/Events.h Src/Core/Frame.h Src/Renderer/RenderObjects/Camera.h \
- Include/pch.h Src/Events/KeyEvents.h Src/Events/MouseEvents.h \
+ Src/pch.h Src/Events/KeyEvents.h Src/Events/MouseEvents.h \
  Src/Events/WindowEvents.h Src/Renderer/RenderObjects/Light.h \
  Src/Core/SphereData.h Src/Renderer/RenderObjects/Material.h \
  Src/Renderer/Data/Shader.h Src/Core/Application.h \
@@ -16,7 +16,7 @@ Src/Gui/Dock.h:
 Src/Events/Events.h:
 Src/Core/Frame.h:
 Src/Renderer/RenderObjects/Camera.h:
-Include/pch.h:
+Src/pch.h:
 Src/Events/KeyEvents.h:
 Src/Events/MouseEvents.h:
 Src/Events/WindowEvents.h:

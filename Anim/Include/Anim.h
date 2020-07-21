@@ -24,7 +24,7 @@ void AnimDrawSphere(float position[3], float color[3], float scale)
 
 void AnimDrawText(const char* msg)
 {
-    printf("dt %s", msg);
+    printf("dt %s\n", msg);
 }
 
 #endif

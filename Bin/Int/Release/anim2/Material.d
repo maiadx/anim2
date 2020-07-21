@@ -1,5 +1,5 @@
 ../Bin/Int/Release/anim2/Material.o: \
- Src/Renderer/RenderObjects/Material.cpp Include/pch.h \
+ Src/Renderer/RenderObjects/Material.cpp Src/pch.h \
  Src/Renderer/RenderObjects/Material.h Src/Renderer/Data/Shader.h \
  Src/Renderer/RenderObjects/Light.h Src/Core/AssetManager.h \
  Src/Renderer/Window.h Src/Events/MouseEvents.h Src/Events/Events.h \
@@ -11,7 +11,7 @@
  Src/Renderer/GLRenderContext.h Src/Renderer/RenderObjects/Camera.h \
  Src/Renderer/Data/GLComputeShader.h Src/Core/Particle.h Src/Core/Frame.h \
  Src/Core/SphereData.h
-Include/pch.h:
+Src/pch.h:
 Src/Renderer/RenderObjects/Material.h:
 Src/Renderer/Data/Shader.h:
 Src/Renderer/RenderObjects/Light.h:

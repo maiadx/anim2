@@ -1,2 +1,2 @@
-../Bin/Int/Release/anim2/Log.o: Src/Core/Log.cpp Include/pch.h
-Include/pch.h:
+../Bin/Int/Release/anim2/Log.o: Src/Core/Log.cpp Src/pch.h
+Src/pch.h:

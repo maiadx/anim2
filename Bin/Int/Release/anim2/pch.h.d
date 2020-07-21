@@ -1,4 +1,4 @@
-../Bin/Int/Release/anim2/pch.h.gch: Include/pch.h Vendor/glm/glm/glm.hpp \
+../Bin/Int/Release/anim2/pch.h.gch: Src/pch.h Vendor/glm/glm/glm.hpp \
  Vendor/glm/glm/detail/_fixes.hpp Vendor/glm/glm/detail/setup.hpp \
  Vendor/glm/glm/detail/../simd/platform.h Vendor/glm/glm/fwd.hpp \
  Vendor/glm/glm/detail/qualifier.hpp Vendor/glm/glm/detail/setup.hpp \
@@ -176,31 +176,8 @@
  Vendor/glm/glm/gtc/../gtc/../ext/vector_int1_precision.hpp \
  Vendor/glm/glm/gtc/../gtc/../ext/vector_uint1.hpp \
  Vendor/glm/glm/gtc/../gtc/../ext/vector_uint1_precision.hpp \
- Vendor/glm/glm/gtc/type_ptr.inl Vendor/spdlog/include/spdlog/spdlog.h \
- Vendor/spdlog/include/spdlog/common.h \
- Vendor/spdlog/include/spdlog/tweakme.h \
- Vendor/spdlog/include/spdlog/details/null_mutex.h \
- Vendor/spdlog/include/spdlog/fmt/fmt.h \
- Vendor/spdlog/include/spdlog/fmt/bundled/core.h \
- Vendor/spdlog/include/spdlog/fmt/bundled/format.h \
- Vendor/spdlog/include/spdlog/fmt/bundled/core.h \
- Vendor/spdlog/include/spdlog/fmt/bundled/format-inl.h \
- Vendor/spdlog/include/spdlog/fmt/bundled/format.h \
- Vendor/spdlog/include/spdlog/details/registry.h \
- Vendor/spdlog/include/spdlog/details/periodic_worker.h \
- Vendor/spdlog/include/spdlog/logger.h \
- Vendor/spdlog/include/spdlog/formatter.h \
- Vendor/spdlog/include/spdlog/details/log_msg.h \
- Vendor/spdlog/include/spdlog/details/os.h \
- Vendor/spdlog/include/spdlog/sinks/sink.h \
- Vendor/spdlog/include/spdlog/details/pattern_formatter.h \
- Vendor/spdlog/include/spdlog/details/fmt_helper.h \
- Vendor/spdlog/include/spdlog/details/logger_impl.h \
- Vendor/spdlog/include/spdlog/sinks/ansicolor_sink.h \
- Vendor/spdlog/include/spdlog/details/console_globals.h \
- Vendor/spdlog/include/spdlog/version.h \
- Vendor/spdlog/include/spdlog/sinks/stdout_color_sinks.h Src/Core/Log.h \
- Src/Utils/Memory.h Src/Utils/Math.h
+ Vendor/glm/glm/gtc/type_ptr.inl Src/Core/Log.h Src/Utils/Memory.h \
+ Src/Utils/Math.h
 Vendor/glm/glm/glm.hpp:
 Vendor/glm/glm/detail/_fixes.hpp:
 Vendor/glm/glm/detail/setup.hpp:
@@ -392,30 +369,6 @@ Vendor/glm/glm/gtc/../gtc/../ext/vector_int1_precision.hpp:
 Vendor/glm/glm/gtc/../gtc/../ext/vector_uint1.hpp:
 Vendor/glm/glm/gtc/../gtc/../ext/vector_uint1_precision.hpp:
 Vendor/glm/glm/gtc/type_ptr.inl:
-Vendor/spdlog/include/spdlog/spdlog.h:
-Vendor/spdlog/include/spdlog/common.h:
-Vendor/spdlog/include/spdlog/tweakme.h:
-Vendor/spdlog/include/spdlog/details/null_mutex.h:
-Vendor/spdlog/include/spdlog/fmt/fmt.h:
-Vendor/spdlog/include/spdlog/fmt/bundled/core.h:
-Vendor/spdlog/include/spdlog/fmt/bundled/format.h:
-Vendor/spdlog/include/spdlog/fmt/bundled/core.h:
-Vendor/spdlog/include/spdlog/fmt/bundled/format-inl.h:
-Vendor/spdlog/include/spdlog/fmt/bundled/format.h:
-Vendor/spdlog/include/spdlog/details/registry.h:
-Vendor/spdlog/include/spdlog/details/periodic_worker.h:
-Vendor/spdlog/include/spdlog/logger.h:
-Vendor/spdlog/include/spdlog/formatter.h:
-Vendor/spdlog/include/spdlog/details/log_msg.h:
-Vendor/spdlog/include/spdlog/details/os.h:
-Vendor/spdlog/include/spdlog/sinks/sink.h:
-Vendor/spdlog/include/spdlog/details/pattern_formatter.h:
-Vendor/spdlog/include/spdlog/details/fmt_helper.h:
-Vendor/spdlog/include/spdlog/details/logger_impl.h:
-Vendor/spdlog/include/spdlog/sinks/ansicolor_sink.h:
-Vendor/spdlog/include/spdlog/details/console_globals.h:
-Vendor/spdlog/include/spdlog/version.h:
-Vendor/spdlog/include/spdlog/sinks/stdout_color_sinks.h:
 Src/Core/Log.h:
 Src/Utils/Memory.h:
 Src/Utils/Math.h:

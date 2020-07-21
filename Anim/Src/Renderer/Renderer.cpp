@@ -34,7 +34,7 @@ void Renderer::Submit(Frame& Frame, float dt)
 {
     Instance().currentFrame = &Frame;
     Instance().currentFrame->GetCamera().Update(dt);
-    RenderSpheres(Frame.GetSpheres());\
+    RenderSpheres(Frame.GetSpheres());
 }
 
 void Renderer::End()

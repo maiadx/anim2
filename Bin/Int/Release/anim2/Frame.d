@@ -1,4 +1,4 @@
-../Bin/Int/Release/anim2/Frame.o: Src/Core/Frame.cpp Include/pch.h \
+../Bin/Int/Release/anim2/Frame.o: Src/Core/Frame.cpp Src/pch.h \
  Src/Core/Frame.h Src/Renderer/RenderObjects/Camera.h \
  Src/Events/KeyEvents.h Src/Events/Events.h Src/Events/MouseEvents.h \
  Src/Events/WindowEvents.h Src/Renderer/RenderObjects/Light.h \
@@ -8,7 +8,7 @@
  Vendor/glfw/include/GLFW/glfw3.h Src/Renderer/Data/VertexArray.h \
  Src/Renderer/Data/VertexBuffer.h Src/Renderer/Data/Texture.h \
  Src/Renderer/RenderObjects/Mesh.h
-Include/pch.h:
+Src/pch.h:
 Src/Core/Frame.h:
 Src/Renderer/RenderObjects/Camera.h:
 Src/Events/KeyEvents.h:

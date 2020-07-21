@@ -1,5 +1,5 @@
 ../Bin/Int/Release/anim2/Application.o: Src/Core/Application.cpp \
- Include/pch.h Src/Core/Application.h Src/Events/Events.h \
+ Src/pch.h Src/Core/Application.h Src/Events/Events.h \
  Src/Renderer/Renderer.h Src/Renderer/Window.h Src/Events/MouseEvents.h \
  Src/Events/KeyEvents.h Src/Events/WindowEvents.h \
  Vendor/glad/include/glad/glad.h Vendor/glad/include/KHR/khrplatform.h \
@@ -11,7 +11,7 @@
  Src/Renderer/Data/VertexArray.h Src/Renderer/Data/VertexBuffer.h \
  Src/Core/Frame.h Src/Core/SphereData.h Src/Gui/Dock.h \
  Src/Core/AssetManager.h
-Include/pch.h:
+Src/pch.h:
 Src/Core/Application.h:
 Src/Events/Events.h:
 Src/Renderer/Renderer.h:

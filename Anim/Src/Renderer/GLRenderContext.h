@@ -2,6 +2,7 @@
 
 namespace Anim
 {
+/* wrapper for the necessary OpenGL functions */
 class GLRenderContext
 {
 public:
