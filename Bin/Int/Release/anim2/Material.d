@@ -6,11 +6,10 @@
  Src/Events/KeyEvents.h Src/Events/WindowEvents.h \
  Vendor/glad/include/glad/glad.h Vendor/glad/include/KHR/khrplatform.h \
  Vendor/glfw/include/GLFW/glfw3.h Src/Renderer/Data/VertexArray.h \
- Src/Renderer/Data/VertexBuffer.h Src/Renderer/Data/Texture.h \
- Src/Renderer/RenderObjects/Mesh.h Src/Renderer/Renderer.h \
- Src/Renderer/GLRenderContext.h Src/Renderer/RenderObjects/Camera.h \
- Src/Renderer/Data/GLComputeShader.h Src/Core/Particle.h Src/Core/Frame.h \
- Src/Core/SphereData.h
+ Src/Renderer/Data/VertexBuffer.h Src/Renderer/RenderObjects/Mesh.h \
+ Src/Renderer/Renderer.h Src/Renderer/GLRenderContext.h \
+ Src/Renderer/RenderObjects/Camera.h Src/Renderer/Data/GLComputeShader.h \
+ Src/Core/Particle.h Src/Core/Frame.h Src/Core/SphereData.h
 Src/pch.h:
 Src/Renderer/RenderObjects/Material.h:
 Src/Renderer/Data/Shader.h:
@@ -26,7 +25,6 @@ Vendor/glad/include/KHR/khrplatform.h:
 Vendor/glfw/include/GLFW/glfw3.h:
 Src/Renderer/Data/VertexArray.h:
 Src/Renderer/Data/VertexBuffer.h:
-Src/Renderer/Data/Texture.h:
 Src/Renderer/RenderObjects/Mesh.h:
 Src/Renderer/Renderer.h:
 Src/Renderer/GLRenderContext.h:

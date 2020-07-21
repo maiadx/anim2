@@ -6,8 +6,7 @@
  Src/Renderer/Data/Shader.h Src/Core/AssetManager.h Src/Renderer/Window.h \
  Vendor/glad/include/glad/glad.h Vendor/glad/include/KHR/khrplatform.h \
  Vendor/glfw/include/GLFW/glfw3.h Src/Renderer/Data/VertexArray.h \
- Src/Renderer/Data/VertexBuffer.h Src/Renderer/Data/Texture.h \
- Src/Renderer/RenderObjects/Mesh.h
+ Src/Renderer/Data/VertexBuffer.h Src/Renderer/RenderObjects/Mesh.h
 Src/pch.h:
 Src/Core/Frame.h:
 Src/Renderer/RenderObjects/Camera.h:
@@ -26,5 +25,4 @@ Vendor/glad/include/KHR/khrplatform.h:
 Vendor/glfw/include/GLFW/glfw3.h:
 Src/Renderer/Data/VertexArray.h:
 Src/Renderer/Data/VertexBuffer.h:
-Src/Renderer/Data/Texture.h:
 Src/Renderer/RenderObjects/Mesh.h:

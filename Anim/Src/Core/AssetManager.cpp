@@ -302,6 +302,5 @@ MeshData AssetManager::LoadOBJFile(const std::string& filepath)
     }
     MeshData meshData = LoadToVAO(verticesData, texturesData, normalsData, indices);
     meshData.numVertices = vertices.size();
-    Log::Info(std::to_string(vertices.size()).c_str());
     return meshData;
 }

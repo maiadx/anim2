@@ -1,5 +1,5 @@
 ../Bin/Int/Release/anim2/Mesh.o: Src/Renderer/RenderObjects/Mesh.cpp \
- Src/pch.h Src/Renderer/RenderObjects/Mesh.h Src/Renderer/Data/Texture.h \
+ Src/pch.h Src/Renderer/RenderObjects/Mesh.h \
  Src/Renderer/RenderObjects/Material.h Src/Renderer/Data/Shader.h \
  Src/Renderer/RenderObjects/Light.h Src/Renderer/Data/VertexArray.h \
  Src/Renderer/Data/VertexBuffer.h Vendor/glad/include/glad/glad.h \
@@ -9,7 +9,6 @@
  Vendor/glfw/include/GLFW/glfw3.h
 Src/pch.h:
 Src/Renderer/RenderObjects/Mesh.h:
-Src/Renderer/Data/Texture.h:
 Src/Renderer/RenderObjects/Material.h:
 Src/Renderer/Data/Shader.h:
 Src/Renderer/RenderObjects/Light.h:

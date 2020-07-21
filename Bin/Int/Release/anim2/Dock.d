@@ -8,9 +8,9 @@
  Vendor/glad/include/glad/glad.h Vendor/glad/include/KHR/khrplatform.h \
  Vendor/glfw/include/GLFW/glfw3.h Src/Renderer/GLRenderContext.h \
  Src/Renderer/Data/GLComputeShader.h Src/Core/Particle.h \
- Src/Renderer/RenderObjects/Mesh.h Src/Renderer/Data/Texture.h \
- Src/Renderer/Data/VertexArray.h Src/Renderer/Data/VertexBuffer.h \
- Src/Core/AssetManager.h Vendor/imgui/imgui.h Vendor/imgui/imconfig.h \
+ Src/Renderer/RenderObjects/Mesh.h Src/Renderer/Data/VertexArray.h \
+ Src/Renderer/Data/VertexBuffer.h Src/Core/AssetManager.h \
+ Vendor/imgui/imgui.h Vendor/imgui/imconfig.h \
  Vendor/imgui/imgui_impl_glfw.h Vendor/imgui/imgui_impl_opengl3.h
 Src/Gui/Dock.h:
 Src/Events/Events.h:
@@ -34,7 +34,6 @@ Src/Renderer/GLRenderContext.h:
 Src/Renderer/Data/GLComputeShader.h:
 Src/Core/Particle.h:
 Src/Renderer/RenderObjects/Mesh.h:
-Src/Renderer/Data/Texture.h:
 Src/Renderer/Data/VertexArray.h:
 Src/Renderer/Data/VertexBuffer.h:
 Src/Core/AssetManager.h:

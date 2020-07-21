@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#define NUM_BALLS 3000
+#define NUM_BALLS 1000
 
 int main()
 {
