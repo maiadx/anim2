@@ -4,14 +4,14 @@ in vec3 normal;
 
 out vec3 pass_baseColor;
 out vec3 surfaceNormal;
-out vec3 toLightDir[4];
+out vec3 toLightDir[3];
 out vec3 cameraDir;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
-uniform vec3 lightPosition[4];
+uniform vec3 lightPosition[3];
 uniform vec3 baseColor;
 
 void main()
@@ -22,7 +22,7 @@ void main()
 
         surfaceNormal = (model * vec4(normal, 0.0)).xyz;
         
-        for(int i=0; i<4; i++)
+        for(int i=0; i<3; i++)
         {
                 toLightDir[i] = lightPosition[i] - globalPosition.xyz;
         }
