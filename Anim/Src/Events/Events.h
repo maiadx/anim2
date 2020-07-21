@@ -56,6 +56,11 @@ public:
 class EventDispatcher
 {
 friend class EventListener;
+
+protected:    
+    short numListeners = 0;
+    std::vector<EventListener*> listeners;
+
 public:
     virtual ~EventDispatcher(){}
     void AddListener(EventListener* listener)
@@ -79,8 +84,5 @@ public:
         for(EventListener* listener : listeners)
             listener->OnEvent(e);
     }
-protected:    
-    short numListeners = 0;
-    std::vector<EventListener*> listeners;
 };
 }

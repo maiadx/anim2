@@ -12,6 +12,8 @@ public:
 
 class WindowResizeEvent : public WindowEvent
 {
+    float width, height;    
+
 public:
     WindowResizeEvent(int sWidth, int sHeight) : width(sWidth), height(sHeight) {}
 
@@ -19,9 +21,6 @@ public:
 
     inline float GetScreenWidth() const { return width; }
     inline float GetScreenHeight() const { return height; }
-
-private:
-    float width, height;
 };
 
 

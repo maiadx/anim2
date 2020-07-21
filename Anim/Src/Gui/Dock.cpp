@@ -134,7 +134,7 @@ void Dock::ShowSidePanel(Frame& frame, float dt)
 
     if(ImGui::CollapsingHeader("Plots"))
     {
-        ShowObjectSubPanel();
+        ShowPlotSubPanel();
     }
 
     if(ImGui::CollapsingHeader("Shaders"))
@@ -165,7 +165,7 @@ void Dock::ShowShaderSubPanel()
     ImGui::EndChild();
 }
 
-void Dock::ShowObjectSubPanel()
+void Dock::ShowPlotSubPanel()
 {
 
 }

@@ -1,7 +1,6 @@
 #pragma once
 //#include "Core/Asset.h"
 #include "Utils/Memory.h"
-#include "Renderer/Data/Texture.h"
 #include "Renderer/RenderObjects/Material.h"
 #include "Renderer/Data/VertexArray.h"
 namespace Anim 

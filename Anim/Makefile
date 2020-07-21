@@ -18,7 +18,7 @@ ifeq ($(config),debug)
   PCH = Src/pch.h
   GCH = $(OBJDIR)/$(notdir $(PCH)).gch
   DEFINES += -D_CRT_SECURE_NO_WARNINGS -DGLFW_INCLUDE_NONE -D_X11 -DANIM_PLATFORM_LINUX -DLOG_BUILD_DEBUG
-  INCLUDES += -ISrc -IInclude -I. -IVendor/jpl -IVendor/stb -IVendor/glm -IVendor/imgui -IVendor/glad/include -IVendor/glfw/include
+  INCLUDES += -ISrc -IInclude -I. -IVendor/jpl -IVendor/glm -IVendor/imgui -IVendor/glad/include -IVendor/glfw/include
   FORCE_INCLUDE += -include $(OBJDIR)/$(notdir $(PCH))
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
@@ -47,7 +47,7 @@ ifeq ($(config),release)
   PCH = Src/pch.h
   GCH = $(OBJDIR)/$(notdir $(PCH)).gch
   DEFINES += -D_CRT_SECURE_NO_WARNINGS -DGLFW_INCLUDE_NONE -D_X11 -DANIM_PLATFORM_LINUX
-  INCLUDES += -ISrc -IInclude -I. -IVendor/jpl -IVendor/stb -IVendor/glm -IVendor/imgui -IVendor/glad/include -IVendor/glfw/include
+  INCLUDES += -ISrc -IInclude -I. -IVendor/jpl -IVendor/glm -IVendor/imgui -IVendor/glad/include -IVendor/glfw/include
   FORCE_INCLUDE += -include $(OBJDIR)/$(notdir $(PCH))
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -flto -O3
@@ -73,11 +73,9 @@ OBJECTS := \
 	$(OBJDIR)/AssetManager.o \
 	$(OBJDIR)/Frame.o \
 	$(OBJDIR)/Log.o \
-	$(OBJDIR)/Particle.o \
 	$(OBJDIR)/Dock.o \
 	$(OBJDIR)/GLComputeShader.o \
 	$(OBJDIR)/Shader.o \
-	$(OBJDIR)/Texture.o \
 	$(OBJDIR)/VertexArray.o \
 	$(OBJDIR)/VertexBuffer.o \
 	$(OBJDIR)/GLRenderContext.o \
@@ -164,9 +162,6 @@ $(OBJDIR)/Frame.o: Src/Core/Frame.cpp
 $(OBJDIR)/Log.o: Src/Core/Log.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Particle.o: Src/Core/Particle.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Dock.o: Src/Gui/Dock.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -174,9 +169,6 @@ $(OBJDIR)/GLComputeShader.o: Src/Renderer/Data/GLComputeShader.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Shader.o: Src/Renderer/Data/Shader.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Texture.o: Src/Renderer/Data/Texture.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/VertexArray.o: Src/Renderer/Data/VertexArray.cpp

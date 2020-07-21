@@ -14,7 +14,6 @@ workspace "Anim"
 	outputdir = "%{cfg.buildcfg}"
 	
 IncludePaths = {}
-IncludePaths["stb"]    = "Anim/Vendor/stb"
 IncludePaths["glfw"]   = "Anim/Vendor/glfw"
 IncludePaths["glad"]   = "Anim/Vendor/glad"
 IncludePaths["glm"]    = "Anim/Vendor/glm"
@@ -33,7 +32,6 @@ project "Anim"
 		"%{prj.name}/",
 		"%{prj.name}/Vendor/jpl",
 
-		"%{prj.name}/Vendor/stb",
 		"%{prj.name}/Vendor/glm",
 		"%{prj.name}/Vendor/imgui",
         "%{prj.name}/Vendor/glad/include/",
@@ -53,7 +51,6 @@ project "Anim"
         "%{prj.name}/Include/*.cpp",
         "%{prj.name}/Include/*.h",
 
-		"%{prj.name}/Vendor/stb/stb_image.h",
 		"%{prj.name}/Vendor/imgui/*.h",
 		"%{prj.name}/Vendor/imgui/*.cpp"
 	}

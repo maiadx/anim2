@@ -48,28 +48,27 @@ public:
 
 class MouseMoveEvent : public MouseEvent
 {
+protected:
+    float x, y;
+
 public: 
     MouseMoveEvent(float dx, float dy) : x(dx), y(dy){}
     inline EventType GetType() const { return EventType::MOUSE_MOVE; } 
     inline float GetX() const { return x; }
     inline float GetY() const { return y; }
-
-
-protected:
-    float x, y;
 };
 
 class MouseScrollEvent : public MouseEvent
 {
+protected: 
+    float x, y;
+
 public: 
     MouseScrollEvent(float xOffset, float yOffset) : x(xOffset), y(yOffset) {}
     inline EventType GetType() const { return EventType::MOUSE_SCROLL; } 
 
     inline float GetXOffset() const { return x; }
     inline float GetYOffset() const { return y; }
-    
-protected: 
-    float x, y;
 };
 
 class MouseEventDispatcher : public EventDispatcher

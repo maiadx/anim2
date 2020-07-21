@@ -5,26 +5,25 @@ namespace Anim {
 
 class KeyEvent : public Event
 {
-public:
-    inline int GetKeyCode() const { return keyCode; }
-    inline EventCategory GetCategory() const { return EventCategory::CAT_KEYBOARD; }
-
 protected:
     KeyEvent(int keyCode) : keyCode(keyCode){}
     int keyCode;
+
+public:
+    inline int GetKeyCode() const { return keyCode; }
+    inline EventCategory GetCategory() const { return EventCategory::CAT_KEYBOARD; }
 };
 
 
 class KeyPressEvent : public KeyEvent  
 {
+protected:
+    int repeats;    
 public: 
     KeyPressEvent(int keyCode, int repeats) : KeyEvent(keyCode), repeats(repeats){}
 
     inline EventType GetType() const { return EventType::KEY_PRESS; }
     inline int GetRepeats() const { return repeats; }
-
-protected:
-    int repeats;
 };
 
 
@@ -44,12 +43,11 @@ public:
 
 };
 
+
 class KeyEventDispatcher : public EventDispatcher
 {
 public:
     KeyEventDispatcher(){}
     ~KeyEventDispatcher(){}
-    
 };
-
 }

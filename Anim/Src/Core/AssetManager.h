@@ -6,7 +6,6 @@
 
 #include "Renderer/Window.h"
 #include "Renderer/Data/VertexArray.h"
-#include "Renderer/Data/Texture.h"
 #include "Renderer/RenderObjects/Mesh.h"
 /* using singleton schenanagans to control memory management
    in one instance across the program */
@@ -21,27 +20,22 @@ namespace Anim
 
     class AssetManager
     {
+        unsigned int currentIDPtr;
+        std::map<unsigned int, SPtr<Shader>> shaderRefs;
+        std::map<unsigned int, SPtr<Mesh>> meshRefs;
+        std::map<const std::string, unsigned int> shaderFilepaths;
+        std::map<const std::string, unsigned int> meshFilepaths;
+
         AssetManager(){}
         unsigned int GenAssetID();
 
         unsigned int GenerateVAO();
         void StoreDataInAttribList(unsigned int attribNum, unsigned int components, std::vector<float> data);
-
         void ProcessFace(int faceVertices[3][3], std::vector<unsigned int>& indices, std::vector<glm::vec2>& textures, 
                         std::vector<glm::vec3> &normals, std::vector<float> &texturesData, std::vector<float>& normalsData);
         
-        std::map<unsigned int, SPtr<Texture>>* GetTextureMap(); 
         std::map<unsigned int, SPtr<Shader>>* GetShaderMap();
 
-        unsigned int currentIDPtr;
-        std::map<unsigned int, SPtr<Shader>> shaderRefs;
-        std::map<unsigned int, SPtr<Texture>> textureRefs;
-        std::map<unsigned int, SPtr<Mesh>> meshRefs;
-
-        std::map<const std::string, unsigned int> shaderFilepaths;
-        std::map<const std::string, unsigned int> textureFilepaths;
-        std::map<const std::string, unsigned int> meshFilepaths;
-    
     public:
         static AssetManager& Get()
         {   
@@ -57,9 +51,6 @@ namespace Anim
         
         std::array<GLint,4> LoadShaderFile(const std::string& filepath);
         std::string ReadShaderComponentFile(const std::string& filepath, ShaderComponentType shaderType);
-
-        SPtr<Texture> LoadTexture(const std::string& filepath, TextureType tx_type);
-        void LoadTextureFile(SPtr<Texture>& texture, const std::string& filepath, TextureType tx_type);
 
         SPtr<Mesh> LoadMesh(const std::string& filepath);
         MeshData LoadOBJFile(const std::string& filepath);

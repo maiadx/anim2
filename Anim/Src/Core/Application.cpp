@@ -25,7 +25,6 @@ void Application::Init()
 	gui.Init();
 }
 
-
 void Application::Run()
 {
 	deltaTime = 0;

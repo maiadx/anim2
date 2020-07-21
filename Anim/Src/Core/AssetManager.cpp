@@ -4,13 +4,12 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Data/VertexBuffer.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 using namespace Anim;
 
+/* each asset (Shader, Mesh) has its own ID to avoid loading the same data from a file twice */
 unsigned int AssetManager::GenAssetID()
 {
-    return ++currentIDPtr;                                           /* id = 0 is reserved for an ID search failure */
+    return ++currentIDPtr;                                          /* reserve index 0 for a failed search result */
 }
 
 unsigned int AssetManager::FindAssetID(std::map<const std::string, unsigned int>& fileMap, const std::string& filepath)
@@ -54,54 +53,6 @@ SPtr<Shader> AssetManager::LoadShader(const std::string& filepath)
     return shaderRefs[assetID];
 }
 
-SPtr<Texture> AssetManager::LoadTexture(const std::string& filepath, TextureType texType)
-{
-    unsigned int assetID = FindAssetID(textureFilepaths, filepath);
-
-    if(assetID != 0)
-    {
-        return textureRefs[assetID];
-    }
-    assetID = GenAssetID();
-    SPtr<Texture> texture = Texture::Create(texType, false);
-    texture->Bind();
-    LoadTextureFile(texture, filepath, texType);
-    texture->Unbind();
-    textureRefs.insert(std::pair<unsigned int, SPtr<Texture>>(assetID, Texture::Create(texType, false)));
-    textureFilepaths.insert(std::pair<std::string, unsigned int>(filepath, assetID));
-    return textureRefs[assetID];
-}
-
-// SPtr<CubeMap> AssetManager::LoadCubeMap(const std::string& filepath, TextureType texType)
-// {
-//    unsigned int assetID = FindAssetID(cubeMapFilepaths, filepath);
-//     if(assetID != 0)
-//     {
-//         return cubeMapRefs[assetID];
-//     }
-
-//     std::array<std::string, 6> mapFaceFilepaths;
-//     mapFaceFilepaths[0] = filepath + "/right.png";
-//     mapFaceFilepaths[1] = filepath + "/left.png";
-//     mapFaceFilepaths[2] = filepath + "/top.png";
-//     mapFaceFilepaths[3] = filepath + "/bottom.png";
-//     mapFaceFilepaths[4] = filepath + "/front.png";
-//     mapFaceFilepaths[5] = filepath + "/back.png";
-    
-//     assetID = GenAssetID();
-//     cubeMapRefs.insert(std::pair<unsigned int, std::unique_ptr<CubeMap>>(assetID, std::make_unique<CubeMap>(mapFaceFilepaths, texType)));
-//     return cubeMapRefs[assetID];
-// }
-
-// unsigned int AssetManager::GenerateVAO()
-// {
-//     unsigned int vaoID;
-//     VertexArray::GenArray
-//     glGenVertexArrays(1, &vaoID);
-//     glBindVertexArray(vaoID);
-//     return vaoID;
-// }
-
 void AssetManager::StoreDataInAttribList(unsigned int attribNum, unsigned int dimensions, std::vector<float> data)
 {
     unsigned int VboID;
@@ -112,27 +63,10 @@ void AssetManager::StoreDataInAttribList(unsigned int attribNum, unsigned int di
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-//void AssetManager::StoreDataInAttribList(unsigned int attribNum, unsigned int)
-
-// static void bindIBO(std::vector<unsigned int> &indices)
-// {
-//     unsigned int iboID;
-//     glGenBuffers(1, &iboID);
-//     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
-//     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-
-// }
-
-std::map<unsigned int, SPtr<Texture>>* AssetManager::GetTextureMap()
-{
-    return &textureRefs;
-}
-
 std::map<unsigned int, SPtr<Shader>>* AssetManager::GetShaderMap()
 {
     return &shaderRefs;
 }
-
 
 /* loads a single vertex buffer object to VAO */
 MeshData AssetManager::LoadToVAO(std::vector<float>& positions, unsigned int dim)
@@ -193,96 +127,6 @@ MeshData AssetManager::LoadToVAO(std::vector<float>& positions, std::vector<floa
     return meshData;
 }   
 
-std::array<GLint, 4> AssetManager::LoadShaderFile(const std::string& filepath)
-{
-    std::string glslVersion; 
-    std::array<GLint, 4> shaderIDs = {-1, -1, -1, -1};                     /* flags for what stages exist in shader */
-
-    std::string vertSrc, fragSrc, geomSrc, compSrc;
-    std::string* activeSrc;
-    std::string line;                                           
-    std::ifstream openFile(filepath.c_str());
-    
-    if(!openFile.is_open())
-    {
-        Log::Error(("Error loading glsl shader: " + filepath).c_str());
-        return shaderIDs;
-    }
-
-    std::getline(openFile, line);
-    glslVersion = line;                                                 /* first line MUST be the glsl version */
-    vertSrc += glslVersion;
-    fragSrc += glslVersion;
-    geomSrc += glslVersion;
-    compSrc += glslVersion;
-
-    while(!openFile.eof())
-    {
-        std::getline(openFile, line);
-        std::stringstream ss(line);
-        std::string token;
-
-        if(line.at(0) == '.')
-        {
-            if(line.find(".vert") != std::string::npos)
-            {
-                //shaderIDs[0] = glCreateShader(GL_VERTEX_SHADER);
-                activeSrc = &vertSrc;
-            } else if(line.find(".frag") != std::string::npos)
-            {
-                //shaderIDs[1] = glCreateShader(GL_FRAGMENT_SHADER);
-                activeSrc = &fragSrc;
-            } else if(line.find(".geom") != std::string::npos)
-            {
-                //shaderIDs[2] = glCreateShader(GL_GEOMETRY_SHADER);
-                activeSrc = &geomSrc;
-            } else if(line.find(".comp") != std::string::npos)
-            {
-                //shaderIDs[3] = glCreateShader(GL_COMPUTE_SHADER);
-                activeSrc = &compSrc;
-            }
-            continue;
-        } else if(activeSrc == nullptr)
-            continue;
-
-        *activeSrc += line;
-        *activeSrc += "\n";
-    }
-    openFile.close();
-
-	Log::Error((("Compiling glsl shader file: ") + filepath).c_str());
-
-    const char* srcPtr;
-    unsigned int i;
-    if(shaderIDs[0] != -1)
-    {
-        srcPtr = vertSrc.c_str();
-        // glShaderSource(shaderIDs[0], 1, &srcPtr, NULL);
-        // glCompileShader(shaderIDs[0]);
-    }
-    if(shaderIDs[1] != -1)
-    {
-        srcPtr = fragSrc.c_str();
-        // glShaderSource(shaderIDs[1], 1, &srcPtr, NULL);
-        // glCompileShader(shaderIDs[1]);
-    }
-    if(shaderIDs[2] != -1)
-    {
-        srcPtr = fragSrc.c_str();
-        // glShaderSource(shaderIDs[2], 2, &srcPtr, NULL);
-        // glCompileShader(shaderIDs[2]);
-    }    
-    if(shaderIDs[3] != -1)
-    {    
-        srcPtr = fragSrc.c_str();
-        // glShaderSource(shaderIDs[1], 1, &srcPtr, NULL);
-        // glCompileShader(shaderIDs[1]);
-    }
-
-    
-    return shaderIDs;
-}
-
 std::string AssetManager::ReadShaderComponentFile(const std::string& filepath, ShaderComponentType shaderType)
 {
     // GLuint shaderID = 0;//glCreateShader(shaderType);
@@ -320,54 +164,12 @@ std::string AssetManager::ReadShaderComponentFile(const std::string& filepath, S
         return "[file not found]";
 	}
 
-
 	//LOG_INFO("Compiling shader file: {}", fullFilePath);
 	//glShaderSource(shaderID, 1, &srcPtr, NULL);
 	//glCompileShader(shaderID);
     //Renderer::Get().GetRenderAPI()->CompileShader();
 	//Log::Info((("Compiling glsl shader file: ") + fullFilePath).c_str());
     return source;
-}
-
-void AssetManager::LoadTextureFile(SPtr<Texture>& texture, const std::string& filepath, TextureType texType)
-{
-    int width, height, channels;
-    unsigned int id;
-	// glGenTextures(1, &id);
-	// glBindTexture(format, id);
-    // SPtr<GLTexture> texture =  std::make_shared<GLTexture>(texType, false);
-    texture->Bind();
-	unsigned char* imageData = stbi_load((filepath.c_str()), &width, &height, &channels, 0);
-	if (imageData)
-	{
-        texture->Load(&imageData, width, height);
-
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
-		//LOG_CLI_INFO(("Loaded Texture from location: " + filepath).c_str());
-		//glGenerateMipmap(GL_TEXTURE_2D);
-
-		// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		// if(texType == TextureType::Diffuse || texType == TextureType::Specular)
-        // {
-        //     // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        //     // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);	
-        //     // if(gladIsSupported("GL_EXT_texture_filter_anisotropic") || GLEW_EXT_texture_filter_anisotropic)
-        //     // {
-                
-        //     // } else {
-        //     //     LOG_WARN("anisotropic filtering is not available!");
-        //     //     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -1);
-        //     // }
-        // }
-    }
-	else
-	{
-		Log::Error((("Failed to load image: ") + filepath).c_str());
-        stbi_image_free(imageData);
-	    return LoadTextureFile(texture, "./Resources/Textures/planet.png", texType);
-	}
-    stbi_image_free(imageData);
 }
 
 /* 
@@ -500,6 +302,6 @@ MeshData AssetManager::LoadOBJFile(const std::string& filepath)
     }
     MeshData meshData = LoadToVAO(verticesData, texturesData, normalsData, indices);
     meshData.numVertices = vertices.size();
+    Log::Info(std::to_string(vertices.size()).c_str());
     return meshData;
 }
-

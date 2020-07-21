@@ -21,34 +21,17 @@ GLShader::GLShader(const std::string& fp)
 
 	glBindAttribLocation(shaderID, 0, "position");
 	glBindAttribLocation(shaderID, 1, "normal");
-	//glBindAttribLocation(shaderID, 2, "texCoordinates");
 
 	//LOG_WARN("Linking shader...");
 	glLinkProgram(shaderID);
 	LinkErrorCheck(vertID, ShaderComponentType::Vertex);
 	LinkErrorCheck(fragID, ShaderComponentType::Fragment);
-
-	// char const* source;
-	// GLuint vertShader, fragShader;
-	// source = AssetManager::Get().ReadShaderComponentFile(fp, ShaderComponentType::Vertex).c_str();
-	// glShaderSource(vertShader, 1, &source, NULL);
-	// glCompileShader(vertShader);
-
-	// source = AssetManager::Get().ReadShaderComponentFile(fp, ShaderComponentType::Fragment).c_str();
-	// glShaderSource(fragShader, 1, &source, NULL);
-	// glCompileShader(fragShader);
-
-
-	// source = AssetManager::Get().ReadShaderComponentFile(fp, ShaderComponentType::Fragment);
-
-
 }
 
 GLShader::~GLShader()
 {
 	glDeleteProgram(shaderID);
 }
-
 
 void GLShader::Bind()
 {

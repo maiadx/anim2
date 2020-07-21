@@ -62,6 +62,6 @@ public:
 	void LoadMat2(unsigned int loc, const Mat2& mat);
 	void LoadMat3(unsigned int loc, const Mat3& mat);
 	void LoadMat4(unsigned int loc, const Mat4& mat);
-	
+
 };
 }

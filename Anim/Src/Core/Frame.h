@@ -4,6 +4,10 @@
 #include "Renderer/RenderObjects/Light.h"
 #include "Core/SphereData.h"
 
+/* Frame class: A "snapshot" of everything in the scene being rendered per frame. 
+                None of the spheres are persistent between frames, so at the end of each frame they get deleted. 
+*/
+
 namespace Anim 
 {
 class Frame 

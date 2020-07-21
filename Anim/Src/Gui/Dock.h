@@ -22,7 +22,7 @@ public:
 
     static void ShowSidePanel(Frame& Frame, float dt);
     static void ShowFrameSubPanel(Frame& Frame);
-    static void ShowObjectSubPanel();
+    static void ShowPlotSubPanel();
     static void ShowShaderSubPanel();
 
     static void DrawUserText(const std::string& msg);
