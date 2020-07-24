@@ -17,10 +17,10 @@ void AnimDrawSphere(float position[3], float color[3], float scale)
     printf("sp %f %f %f %f %f %f %f\n", position[0], position[1], position[2], color[0], color[1],color[2], scale);
 }
 
-// void AnimDrawPlot()
-// {
+void AnimDrawPlot()
+{
 
-// }
+}
 
 void AnimDrawText(const char* msg)
 {

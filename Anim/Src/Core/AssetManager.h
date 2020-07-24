@@ -8,7 +8,7 @@
 #include "Renderer/Data/VertexArray.h"
 #include "Renderer/RenderObjects/Mesh.h"
 /* using singleton schenanagans to control memory management
-   in one instance across the program */
+   in one instance across the program, allows us to avoid loading duplicate assets with map refs to filepaths. */
 namespace Anim
     {
     struct MeshData

@@ -10,8 +10,7 @@ namespace Anim {
 enum class EventType : short
 {
     NONE, WINDOW_CLOSE, WINDOW_RESIZE, WINDOW_FOCUS, WINDOW_NOT_FOCUS, WINDOW_MOVE,
-    PROG_UPDATE, PROG_RENDER, RENDER_POLYGON_WIREFRAME,
-    Frame_SWITCH,
+    PROG_UPDATE, PROG_RENDER, FRAME_SWAP,
     KEY_PRESS, KEY_RELEASE, 
     MOUSE_BUTTON_PRESS, MOUSE_BUTTON_RELEASE, MOUSE_MOVE, MOUSE_SCROLL
 };
@@ -42,47 +41,47 @@ public:
     bool handled = false;
 };
 
-
+/* recieves and processes events through the OnEvent function */
 class EventListener 
 {
 public:
-    virtual ~EventListener(){}                   /* Listeners should always be removed */
-    virtual void OnEvent(const Event& e) = 0;      /* from dispatchers upon destruction */
-    virtual void OnAttach() = 0;
+    virtual ~EventListener(){}                      /* Listeners should always be removed */
+    virtual void OnEvent(const Event& e) = 0;           /* from dispatchers upon destruction. */
+    virtual void OnAttach() = 0;                    /*  Called when listener is attached to dispatcher. */
 
 };  
 
-
-class EventDispatcher
-{
-friend class EventListener;
-
-protected:    
-    short numListeners = 0;
-    std::vector<EventListener*> listeners;
-
-public:
-    virtual ~EventDispatcher(){}
-    void AddListener(EventListener* listener)
+    /* sends events to listener */
+    class EventDispatcher
     {
-        listeners.push_back(listener);
-        listener->OnAttach();
-    }
-    void RmListener(EventListener* listener)
-    {
-        for(unsigned int i = 0; i < listeners.size(); i++)
+    friend class EventListener;
+
+    protected:    
+        short numListeners = 0;
+        std::vector<EventListener*> listeners;
+
+    public:
+        virtual ~EventDispatcher(){}
+        void AddListener(EventListener* listener)
         {
-            if(listener == listeners[i])
+            listeners.push_back(listener);
+            listener->OnAttach();
+        }
+        void RmListener(EventListener* listener)
+        {
+            for(unsigned int i = 0; i < listeners.size(); i++)
             {
-                listeners.erase(listeners.begin() + i, listeners.begin() + (i + 1)); 
+                if(listener == listeners[i])
+                {
+                    listeners.erase(listeners.begin() + i, listeners.begin() + (i + 1)); 
+                }
             }
         }
-    }
 
-    void Notify(const Event& e)
-    {
-        for(EventListener* listener : listeners)
-            listener->OnEvent(e);
-    }
-};
+        void Notify(const Event& e)
+        {
+            for(EventListener* listener : listeners)
+                listener->OnEvent(e);
+        }
+    };
 }
