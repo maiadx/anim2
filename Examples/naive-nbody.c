@@ -32,12 +32,11 @@ void SetInitialConditions(Particle particles[NUM_PARTICLES])
 		particles[i].velocity[1] = 0;
 		particles[i].velocity[2] = 0;
 
-
 		particles[i].color[0] = (((float)rand()) / RAND_MAX); 
 		particles[i].color[1] = (((float)rand()) / RAND_MAX); 
 		particles[i].color[2] = (((float)rand()) / RAND_MAX); 
 
-		particles[i].mass = 100000;
+		particles[i].mass = 100;
 	}
 }
 
@@ -46,10 +45,10 @@ void UpdateParticles(Particle* particles, float dt)
 	for(unsigned int i = 0; i < NUM_PARTICLES; i++)
 	{
 		for(unsigned int j = 0; j < 3; j++)
-			particles[i].position[j] += particles[i].velocity[j] * dt/2;
+			particles[i].position[j] += particles[i].velocity[j] * dt/2.0f;
 	}
 
-	for(unsigned int i = 0; i < NUM_PARTICLES; i++)
+	for(unsigned int i = 0; i < NUM_PARTICLES-1; i++)
 	{
 		for(unsigned int j = i+1; j < NUM_PARTICLES; j++)
 		{
@@ -68,9 +67,13 @@ void UpdateParticles(Particle* particles, float dt)
 					force[k] = (disp[k] * GRAV_CONST * particles[i].mass * particles[j].mass) / pow(mag(disp), 3); 
 					forceB[k] = -1 * force[k];
 
-					particles[i].velocity[k] += force[k] * dt * 1/particles[i].mass; 
-					particles[j].velocity[k] += force[k] * dt * 1/particles[j].mass;
+					particles[i].velocity[k] += force[k] * dt * 1.0f/particles[i].mass; 
+					particles[j].velocity[k] += force[k] * dt * 1.0f/particles[j].mass;
 				}
+
+				//printf("force %d: %f %f %f\n", i, force[0], force[1], force[2]);
+
+				//printf("vel %d: %f %f %f\n", i, particles[i].velocity[0], particles[i].velocity[0], particles[i].velocity[0]);
 			}
 		}
 	}
@@ -78,7 +81,7 @@ void UpdateParticles(Particle* particles, float dt)
 	for(unsigned int i = 0; i < NUM_PARTICLES; i++)
 	{
 		for(unsigned int j = 0; j < 3; j++)
-			particles[i].position[j] += particles[i].velocity[j] * dt/2;
+			particles[i].position[j] += particles[i].velocity[j] * dt/2.0f;
 	}
 
 }
@@ -94,9 +97,9 @@ int main()
 	SetInitialConditions(particles);
 
   	float totalTime = 0.0f;
-  	float dt = 0.00001f;
+  	float dt = 0.0001f;
 
-	const int stepsPerFrame = 10000;
+	const int stepsPerFrame = 100;
 	unsigned int steps = 1;
 	unsigned int years = 0;
 
@@ -117,9 +120,7 @@ int main()
 		totalTime += dt;
 		if(totalTime >= 1.0f)
 		{
-			
-
-      //printf("! %d years have elapsed.\n", ++years);
+			//AnimDrawText("A year has elapsed.");
       
       		totalTime = 0.0f;
 			if(++years > 25000)
