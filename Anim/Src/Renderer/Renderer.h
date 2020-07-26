@@ -7,6 +7,12 @@
 #include "Renderer/RenderObjects/Mesh.h"
 #include "Core/Frame.h"
 
+/* Renderer  : sends commands to renderAPIContext and manages state of context 
+    Begin()  : clears color/depth buffer and awaits submission of scene data (Frame.h) 
+    Submit() : user submits the scene, along with frame-time which is used to measure fps
+    End()    : rendering to active framebuffer is complete, swaps buffers to window 
+*/
+
 namespace Anim 
 {
 class Renderer 

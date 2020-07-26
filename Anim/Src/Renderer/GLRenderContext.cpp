@@ -74,7 +74,7 @@ void GLRenderContext::EnableDepthTest()
 
 void GLRenderContext::DisableDepthTest()
 {
-
+    glDisable(GL_DEPTH_TEST);
 }
 
 void GLRenderContext::DrawTriangles(unsigned int numIndices)

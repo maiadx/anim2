@@ -7,30 +7,7 @@ namespace Anim
 {
 class Mesh 
 {
-public:
-	//Mesh();
-	Mesh(const std::string& filepath);
 
-	// Mesh(const Mesh& mesh)
-	// {
-	// 	LOG_WARN("Mesh Copy!");
-	// 	this->vao_id = mesh.vao_id;
-	// 	this->numIndices = mesh.numIndices;
-	// 	this->numVertices = mesh.numVertices;
-	// }
-
-	~Mesh();
-	
-	//void addTexture(Texture& tex);
-	void SetMaterial(SPtr<Material> material);
-	SPtr<Material> GetMaterial();
-	
-	VertexArray* GetVao();
-	unsigned int GetNumIndices();
-	unsigned int GetNumVertices();
-	//float getFurthest();
-
-	
 protected:
 	SPtr<Material> material;
 	VertexArray* vao;
@@ -38,7 +15,16 @@ protected:
 	unsigned int numVertices;
 	unsigned int numIndices;
 
-private: 
-
+public:
+	Mesh(const std::string& filepath);
+	~Mesh();
+	
+	void SetMaterial(SPtr<Material> material);
+	SPtr<Material> GetMaterial();
+	
+	VertexArray* GetVao();
+	unsigned int GetNumIndices();
+	unsigned int GetNumVertices();
+	
 };
 }

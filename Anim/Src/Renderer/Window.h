@@ -15,6 +15,18 @@ namespace Anim
 {
 class Window : public EventListener
 {
+	Window(const Window& other) {}
+	GLFWwindow* window;
+	// GLFWimage winIcon[1];
+
+	int height;
+	int width;
+	std::string title;
+
+	KeyEventDispatcher keyDispatcher;
+	MouseEventDispatcher mouseDispatcher;
+	WindowEventDispatcher windowDispatcher;
+
 public:
 	Window();
 	Window(int width, int height, std::string title);
@@ -37,18 +49,5 @@ public:
 	bool IsRunning();
 	int GetHeight();
 	int GetWidth();
-
-private:
-	Window(const Window& other) {}
-	GLFWwindow* window;
-	GLFWimage winIcon[1];
-
-	int height;
-	int width;
-	std::string title;
-
-	KeyEventDispatcher keyDispatcher;
-	MouseEventDispatcher mouseDispatcher;
-	WindowEventDispatcher windowDispatcher;
 };
 }

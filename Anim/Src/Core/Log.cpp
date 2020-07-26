@@ -6,6 +6,7 @@
 #include <sstream>
 using namespace Anim;
 
+/* asci escape codes to change terminal print-color on Linux systems */
 #define CONSOLE_COLOR_RED     "\x1b[1;31m"
 #define CONSOLE_COLOR_GREEN   "\x1b[32m"
 #define CONSOLE_COLOR_YELLOW  "\x1b[01;33m"

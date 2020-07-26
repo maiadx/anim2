@@ -3,8 +3,8 @@
 #include "Renderer/Data/Shader.h"
 #include "Renderer/RenderObjects/Light.h"
 
-
-
+/* Material: Holds a reference to a Shader Program it can bind/unbind.
+             Caches shader uniform locations and values */
 namespace Anim 
 {
 class Material

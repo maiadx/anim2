@@ -29,7 +29,6 @@ void Frame::CreateLight(const Vec3& pos, const Vec3& color, uint32_t slot)
     lights[slot] = Light(pos, color);
 }
 
-
 void Frame::ClearFrame()
 {
     spheres.clear();

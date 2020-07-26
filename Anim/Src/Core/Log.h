@@ -1,5 +1,5 @@
 #pragma once
-/* console logging */
+/* Log: console logging utilities for Anim2 */
 namespace Anim {
 	class Log
 	{
