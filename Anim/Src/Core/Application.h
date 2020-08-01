@@ -8,13 +8,14 @@ namespace Anim
 {
 class Application 
 {
-	Frame frame;
-	Dock gui;
+	Frame m_Frame;
+	Dock m_Gui;
+	bool m_ShouldClose;
 
 	/* frame rate stuff: */
-	float frameTime;
-	float lastTime;     
-	float deltaTime;
+	float m_FrameTime;
+	float m_LastTime;     
+	float m_DeltaTime;
 
 public:
 	Application();
@@ -26,5 +27,6 @@ public:
 
 	void ScanInput();
 	void RunCommand(std::vector<std::string>& inputCmd);
+	void RunComputeShaderProgram(const std::string& filepath);
 };
 }

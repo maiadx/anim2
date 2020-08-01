@@ -19,7 +19,7 @@ class Renderer
 {
     Window window;
     Frame* currentFrame;
-    Mesh* sphereMesh;
+    Camera* camera;
     Vec3 bgColor;
 
     Renderer(int sWidth, int sHeight, const std::string& wTitle);
@@ -34,7 +34,7 @@ public:
     /* All this ^ does is ensure that we only ever have one instance of our renderer (singleton class)*/
 
     static Window& GetWindow();
-    static Camera& GetCurrentCamera();
+    static Camera* GetCamera();
     static Material& GetDefaultMaterial();
 
     static void SetBackgroundColor(const Vec3& color);
@@ -45,7 +45,7 @@ public:
     static void End();
 
     static void RenderSpheres(std::vector<SphereData>& spheres);
-    static void RunComputeShader(GLComputeShader* cs, float dt);
+    static void RunComputeShader(GLComputeShader& cs, float dt);
 
 };
 }

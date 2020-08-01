@@ -3,11 +3,14 @@
 
 using namespace Anim;
 
+static Mesh* s_sphereMesh;
+
 Renderer::Renderer(int sWidth, int sHeight, const std::string& wTitle) : window(sWidth, sHeight, wTitle)
 {
     bgColor = {0,0,0};
     GLRenderContext::Init();
-    sphereMesh = new Mesh("/usr/share/anim2/Models/volleyball.obj");
+    camera = new Camera({0,0,0},{0,0,0});
+    s_sphereMesh = new Mesh("/usr/share/anim2/Models/volleyball.obj");
 }
 
 Window& Renderer::GetWindow()
@@ -15,9 +18,9 @@ Window& Renderer::GetWindow()
     return Instance().window;
 }
 
-Camera& Renderer::GetCurrentCamera()
+Camera* Renderer::GetCamera()
 {
-    return Instance().currentFrame->GetCamera();
+    return Instance().camera;
 }
 
 void Renderer::SetBackgroundColor(const Vec3& color)
@@ -33,7 +36,7 @@ void Renderer::Begin()
 void Renderer::Submit(Frame& Frame, float dt)
 {
     Instance().currentFrame = &Frame;
-    Instance().currentFrame->GetCamera().Update(dt);
+    Instance().camera->Update(dt);
     RenderSpheres(Frame.GetSpheres());
 }
 
@@ -45,9 +48,9 @@ void Renderer::End()
 void Renderer::RenderSpheres(std::vector<SphereData>& spheres)
 {
     Frame* frame = Instance().currentFrame;
-    Camera camera = frame->GetCamera();
+    Camera camera = *Instance().camera;
     
-    Mesh& sphereMesh = *Instance().sphereMesh;
+    Mesh& sphereMesh = *s_sphereMesh;
     sphereMesh.GetMaterial()->Bind();
     
     VertexArray* vao = sphereMesh.GetVao();
@@ -74,24 +77,24 @@ void Renderer::RenderSpheres(std::vector<SphereData>& spheres)
 }
 
 /* Compute Shaders are WIP */
-void Renderer::RunComputeShader(GLComputeShader* cs, float dt)
+void Renderer::RunComputeShader(GLComputeShader& cs, float dt)
 {
     Frame* currentFrame = Instance().currentFrame;
 
     float forceRadii = 5;
-    cs->BindCS();
-    cs->LoadFloat(glGetUniformLocation(cs->GetCSID(), "timestep"), dt);
-    cs->LoadFloat(glGetUniformLocation(cs->GetCSID(), "forceRadii"), forceRadii);
+    cs.BindCS();
+    cs.LoadFloat(glGetUniformLocation(cs.GetCSID(), "timestep"), dt);
+    cs.LoadFloat(glGetUniformLocation(cs.GetCSID(), "forceRadii"), forceRadii);
     
-    cs->Compute();
+    cs.Compute();
 
-    cs->SetProjMatrix(currentFrame->GetCamera().GetProjectionMatrix());
-    cs->SetViewMatrix(currentFrame->GetCamera().GetViewMatrix());
+    cs.SetProjMatrix(Instance().camera->GetProjectionMatrix());
+    cs.SetViewMatrix(Instance().camera->GetViewMatrix());
     
-    GLRenderContext::DrawPointsInstanced(cs->GetNumObjects());
+    GLRenderContext::DrawPointsInstanced(cs.GetNumObjects());
     
     glBindVertexArray(0);
-    cs->Unbind();
+    cs.Unbind();
 }
 
 

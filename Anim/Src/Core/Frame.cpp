@@ -5,9 +5,9 @@
 
 using namespace Anim;
 
-Frame::Frame() : camera(Vec3(0,10,0), Vec3(0,0,0)) 
+Frame::Frame() 
 {
-    lights[0] = Light(Vec3(100,1000,1000), Vec3(0.7f, 0.7f, 0.7f));
+   
 }
 
 Frame::~Frame()
@@ -42,10 +42,5 @@ std::vector<SphereData>& Frame::GetSpheres()
 std::array<Light, 3>& Frame::GetLights()
 {
     return lights;
-}
-
-Camera& Frame::GetCamera()
-{
-    return camera;
 }
 

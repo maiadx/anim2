@@ -4,10 +4,8 @@
 
 using namespace Anim;
 
-GLComputeShader::GLComputeShader(std::vector<Particle>& particles, const std::string& fp, unsigned int numWG) : GLShader(fp), numWorkGroups(numWG), numObjects(particles.size())
+GLComputeShader::GLComputeShader(std::vector<Particle>& particles, const std::string& fp, unsigned int numWG) : GLShader("/usr/share/anim2/Shaders/ComputeShaders/default"), numWorkGroups(numWG), numObjects(particles.size())
 {
-    // GLuint vertShader = BuildComponent(fp, ShaderComponentType::Vertex);
-    // GLuint fragShader = BuildComponent(fp, ShaderComponentType::Fragment);
 
     GLuint compShader = BuildComponent(fp, ShaderComponentType::Compute);
 

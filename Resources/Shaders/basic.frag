@@ -46,7 +46,5 @@ void main()
 
         net_diffuse = max(net_diffuse, 0.05);
 
-        //vec3 test = vec3(0.5, 0.5, 0.5);
-
         output_color = vec4(net_diffuse, 1.0) * vec4(pass_baseColor, 1.0) + vec4(net_specular, 1.0);
 }

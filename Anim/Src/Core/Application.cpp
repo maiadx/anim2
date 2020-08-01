@@ -6,10 +6,8 @@
 
 using namespace Anim;
 
-Application::Application() 
+Application::Application() : m_FrameTime(0), m_DeltaTime(0), m_ShouldClose(false)
 {
-	frameTime = 0;
-	deltaTime = 0;
 	
 	Log::Info("Initializing...");
 }	
@@ -18,23 +16,42 @@ void Application::Init()
 {
 	AssetManager* assetManager = &AssetManager::Get();
 	
-	Camera* camera = &frame.GetCamera();
+	Camera* camera = Renderer::GetCamera();
 	Renderer::GetWindow().GetMouseDispatcher().AddListener(camera);
 	Renderer::GetWindow().GetKeyDispatcher().AddListener(camera);
 	
-	gui.Init();
+	m_Gui.Init();
 }
 
 void Application::Run()
 {
-	deltaTime = 0;
-	frameTime = 0;
-	lastTime = glfwGetTime();
+	m_DeltaTime = 0;
+	m_FrameTime = 0;
+	m_LastTime = glfwGetTime();
 
-	while (Renderer::GetWindow().IsRunning())
+	do
 	{
+		if (std::cin.eof())
+		{
+			m_ShouldClose = true;
+			return;
+		}
 		ScanInput();
+
+		/* code */
+	} while (Renderer::GetWindow().IsRunning() && !m_ShouldClose);
+	
+}
+
+
+const char* TokensToString(std::vector<std::string>& inputCmd, uint32 startIndex)
+{
+	std::stringstream ss;
+	for(int i = startIndex; i < inputCmd.size(); i++)
+	{
+		ss << inputCmd[i] << " ";
 	}
+	return ss.str().c_str();
 }
 
 void Application::RunCommand(std::vector<std::string>& inputCmd)
@@ -46,13 +63,13 @@ void Application::RunCommand(std::vector<std::string>& inputCmd)
 		position.y = atof(inputCmd[2].c_str());
 		position.z = atof(inputCmd[3].c_str());
 
-		color.x = atof(inputCmd[4].c_str());
-		color.y = atof(inputCmd[5].c_str());
-		color.z = atof(inputCmd[6].c_str());
+		color.x    = atof(inputCmd[4].c_str());
+		color.y    = atof(inputCmd[5].c_str());
+		color.z    = atof(inputCmd[6].c_str());
 
 		float scale = atof(inputCmd[7].c_str());
 
-		frame.CreateSphere(position, color, scale);
+		m_Frame.CreateSphere(position, color, scale);
 	
     }  else if(inputCmd[0] == "cc") { 				 		/* set new clear color bg */
 		Vec3 color;
@@ -64,14 +81,7 @@ void Application::RunCommand(std::vector<std::string>& inputCmd)
 
 	} else if(inputCmd[0] == "dt") {   			     		/* draw text */
 		
-		std::stringstream ss;
-		for(int i = 1; i < inputCmd.size(); i++)
-		{
-			ss << inputCmd[i] << " ";
-		}
-		Log::Info("recieved text.");
-		Log::Info(ss.str().c_str());
-		gui.DrawUserText(ss.str());
+		m_Gui.DrawUserText(TokensToString(inputCmd, 1));
 
 	} else if(inputCmd[0] == "gr") {                            /* graph */
     
@@ -89,25 +99,47 @@ void Application::RunCommand(std::vector<std::string>& inputCmd)
     	//std::cout << "Recieved command to graph stuff" << std::endl;
         // Renderer::DrawPlot(plot);
 
-    } else if(inputCmd[0] == "ef") {                 /* end frame */
+    } else if(inputCmd[0] == "lc")
+	{
+		RunComputeShaderProgram(inputCmd[1]);
+
+	} else if(inputCmd[0] == "cl")
+	{
+		Log::Info(TokensToString(inputCmd, 1));
+
+
+	}else if(inputCmd[0] == "ef") {                 /* end frame */
     
 		Renderer::Begin();
-		Renderer::Submit(frame, frameTime);
-		gui.Update(frame, frameTime);
+		Renderer::Submit(m_Frame, m_FrameTime);
+
+		m_Gui.Update(m_Frame, m_FrameTime);
+		
 		Renderer::End();
-		frame.ClearFrame();
-		frameTime = 0;
+		m_Frame.ClearFrame();
 
-		deltaTime = (glfwGetTime() - lastTime);
-		lastTime = glfwGetTime();
-		frameTime += deltaTime;
-    }
+		m_FrameTime = 0;
+		m_DeltaTime = (glfwGetTime() - m_LastTime);
+		m_LastTime = glfwGetTime();
+		m_FrameTime += m_DeltaTime;
+    } else if(inputCmd[0] == "!") {
+
+		printf("%s\n", TokensToString(inputCmd, 1));
+	} else if(inputCmd[0] == "ex")
+	{
+		m_ShouldClose = true;
+	}
 }
-
+	
 /* input redirected from stdio */
 void Application::ScanInput()
 {
+  	// if (fgets(line,299, stdin) == NULL) {} // to make the compiler happy; we don't really care
+    // if (feof(stdin)) {usleep(1000);return;}
+
+
     std::string input;
+
     std::getline(std::cin, input);
     std::stringstream stream(input);
     
@@ -120,6 +152,47 @@ void Application::ScanInput()
     }
 
     RunCommand(tokens);    
+}
+
+void Application::RunComputeShaderProgram(const std::string& filepath)
+{
+	// std::vector<Particle> particles;
+
+	// while(true)
+	// {
+	// 	std::string input;
+	// 	std::getline(std::cin, input);
+	// 	std::stringstream stream(input);
+	// 	std::string token;
+	// 	std::vector<std::string> tokens;
+
+	// 	while(std::getline(stream, token, ' '))
+	// 		tokens.push_back(token);    
+
+	// 	if(tokens[0] == "ap")
+	// 	{
+	// 		Vec3 position = { atof(tokens[0].c_str()), atof(tokens[1].c_str()), atof(tokens[2].c_str()) };
+	// 		Vec3 velocity = { atof(tokens[3].c_str()), atof(tokens[4].c_str()), atof(tokens[5].c_str()) };
+	// 		Vec3 color    = { atof(tokens[6].c_str()), atof(tokens[7].c_str()), atof(tokens[8].c_str()) };
+	// 		float mass = atof(tokens[9].c_str());
+
+	// 		particles.emplace_back(position, velocity, color, mass);
+
+	// 	} else if(tokens[0] == "rc") {
+	// 		break;
+	// 	}
+	
+	// }
+
+	// GLComputeShader computeShader(particles, filepath, 512);
+
+	// while(true)
+	// {
+	// 	Renderer::Begin();
+	// 	Renderer::RunComputeShader();
+	// 	Renderer::End();
+	// }
+
 }
 
 
