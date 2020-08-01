@@ -26,6 +26,9 @@ int main()
 
 	int timestepsElapsed = 0;
 
+	while(42)
+	{
+
 		for(unsigned int i = 0; i < NUM_PARTICLES; i++)
 		{
 			AnimDrawSphere(particlePositions[i], particleColors[i], 1);
@@ -34,7 +37,7 @@ int main()
 
 			AnimEndFrame();
 
-	
+	}
 
 
 	AnimShutdown();
