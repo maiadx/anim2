@@ -19,8 +19,8 @@ int main()
 		particlePositions[i][2] = (((float)rand()) / RAND_MAX) * 20 - 10; 
 
 		particleColors[i][0] = (((float)rand()) / RAND_MAX); 
-		particleColors[i][0] = (((float)rand()) / RAND_MAX); 
-		particleColors[i][0] = (((float)rand()) / RAND_MAX); 
+		particleColors[i][1] = (((float)rand()) / RAND_MAX); 
+		particleColors[i][2] = (((float)rand()) / RAND_MAX); 
 	}
 
 

@@ -11,7 +11,7 @@ class Dock : public EventDispatcher
         return *dock;
     }
     // bool f_showMenubar;
-    bool f_showSidepanel;
+    bool f_ShowSidepanel;
 
 public:
     Dock();	

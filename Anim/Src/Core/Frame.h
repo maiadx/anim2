@@ -13,8 +13,8 @@ namespace Anim
 {
     class Frame 
     {
-        std::vector<SphereData> spheres;
-        std::array<Light, 3> lights = {Light({1000, 1000,1000}, {1,1,1}), Light({0,0,0}, {0,0,0}), Light({0,0,0}, {0,0,0})};
+        std::vector<SphereData> m_Spheres;
+        std::array<Light, 3> m_Lights = {Light({1000, 1000,1000}, {1,1,1}), Light({0,0,0}, {0,0,0}), Light({0,0,0}, {0,0,0})};
     
     public:
         Frame();

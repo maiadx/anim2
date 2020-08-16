@@ -8,39 +8,39 @@ Mesh::Mesh(const std::string& filepath)
 {	
 	MeshData meshData = AssetManager::Get().LoadOBJFile(filepath);
 	
-	this->vao = meshData.vao;
-	this->numIndices = meshData.numIndices;
-	this->numVertices = meshData.numVertices;
-	this->material = std::make_shared<Material>();
+	this->m_Vao = meshData.Vao;
+	this->m_NumIndices = meshData.NumIndices;
+	this->m_NumVertices = meshData.NumVertices;
+	this->m_Material = std::make_shared<Material>();
 }
 
 Mesh::~Mesh()
 {
-	delete vao;
+	delete m_Vao;
 
 }
 
 void Mesh::SetMaterial(SPtr<Material> material)
 {
-	this->material = material;
+	this->m_Material = material;
 }
 
 SPtr<Material> Mesh::GetMaterial()
 {
-	return material;
+	return m_Material;
 }
 
 unsigned int Mesh::GetNumIndices()
 {
-	return this->numIndices;
+	return this->m_NumIndices;
 }
 
 VertexArray* Mesh::GetVao()
 {
-	return vao;
+	return m_Vao;
 }
 
 unsigned int Mesh::GetNumVertices()
 {
-	return this->numVertices;
+	return this->m_NumVertices;
 }

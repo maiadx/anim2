@@ -17,10 +17,10 @@ namespace Anim
 {
 class Renderer 
 {
-    Window window;
-    Frame* currentFrame;
-    Camera* camera;
-    Vec3 bgColor;
+    Window m_Window;
+    Frame* m_CurrentFrame;
+    Camera* m_Camera;
+    Vec3 m_BgColor;
 
     Renderer(int sWidth, int sHeight, const std::string& wTitle);
 

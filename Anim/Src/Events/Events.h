@@ -9,7 +9,8 @@ namespace Anim {
 
 enum class EventType : short
 {
-    NONE, WINDOW_CLOSE, WINDOW_RESIZE, WINDOW_FOCUS, WINDOW_NOT_FOCUS, WINDOW_MOVE,
+    NONE, 
+    WINDOW_CLOSE, WINDOW_RESIZE, WINDOW_FOCUS, WINDOW_NOT_FOCUS, WINDOW_MOVE,
     PROG_UPDATE, PROG_RENDER, FRAME_SWAP,
     KEY_PRESS, KEY_RELEASE, 
     MOUSE_BUTTON_PRESS, MOUSE_BUTTON_RELEASE, MOUSE_MOVE, MOUSE_SCROLL
@@ -38,7 +39,7 @@ public:
     }
     
     EventCategory category;
-    bool handled = false;
+    bool m_Handled = false;
 };
 
 /* recieves and processes events through the OnEvent function */
@@ -57,30 +58,30 @@ public:
     friend class EventListener;
 
     protected:    
-        short numListeners = 0;
-        std::vector<EventListener*> listeners;
+        uint32_t m_NumListeners = 0;
+        std::vector<EventListener*> m_Listeners;
 
     public:
         virtual ~EventDispatcher(){}
         void AddListener(EventListener* listener)
         {
-            listeners.push_back(listener);
+            m_Listeners.push_back(listener);
             listener->OnAttach();
         }
         void RmListener(EventListener* listener)
         {
-            for(unsigned int i = 0; i < listeners.size(); i++)
+            for(unsigned int i = 0; i < m_Listeners.size(); i++)
             {
-                if(listener == listeners[i])
+                if(listener == m_Listeners[i])
                 {
-                    listeners.erase(listeners.begin() + i, listeners.begin() + (i + 1)); 
+                    m_Listeners.erase(m_Listeners.begin() + i, m_Listeners.begin() + (i + 1)); 
                 }
             }
         }
 
         void Notify(const Event& e)
         {
-            for(EventListener* listener : listeners)
+            for(EventListener* listener : m_Listeners)
                 listener->OnEvent(e);
         }
     };

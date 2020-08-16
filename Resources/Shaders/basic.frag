@@ -21,12 +21,12 @@ void main()
         vec3 net_diffuse = vec3(0.0, 0.0, 0.0);
         vec3 net_specular = vec3(0.0, 0.0, 0.0);
 
-        vec3 test_att = vec3(0.5, 0.0, 0.0);
+        vec3 default_attenuation = vec3(0.5, 0.0, 0.0);
 
         for(int i = 0; i < 1; i++)
         {
                 float distToSrc = length(toLightDir[i]);
-                float att_factor = test_att.x + (test_att.y * distToSrc) + (test_att.z * distToSrc * distToSrc);
+                float att_factor = test_att.x + (default_attenuation.y * distToSrc) + (default_attenuation.z * distToSrc * distToSrc);
                 
                 vec3 unit_toLightDir = normalize(toLightDir[i]);
                 float relativeDir = dot(unit_normal, unit_toLightDir);

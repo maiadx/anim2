@@ -10,31 +10,38 @@
 /* using singleton schenanagans to control file-loading,
     allows us to avoid loading duplicate assets with map refs to filepaths. */
 namespace Anim
-    {
+{
     struct MeshData
     {
-        VertexArray* vao;
-        uint32 numIndices;
-        uint32 numVertices;
+        VertexArray* Vao;
+        uint32 NumIndices;
+        uint32 NumVertices;
     };
 
     class AssetManager
     {
-        unsigned int currentIDPtr;
-        std::map<unsigned int, SPtr<Shader>> shaderRefs;
-        std::map<unsigned int, SPtr<Mesh>> meshRefs;
-        std::map<const std::string, unsigned int> shaderFilepaths;
-        std::map<const std::string, unsigned int> meshFilepaths;
+        unsigned int m_CurrentID;                                  /* non-uuid incrementing ID for each asset */
+        std::map<unsigned int, SPtr<Shader>> m_ShaderRefs;
+        std::map<unsigned int, SPtr<Mesh>> m_MeshRefs;
+        std::map<const std::string, unsigned int> m_ShaderFilepaths;
+        std::map<const std::string, unsigned int> m_MeshFilepaths;
 
-        AssetManager(){}
+        AssetManager(){}                                            /* default ctor for singleton instance */
+
         unsigned int GenAssetID();
-
         unsigned int GenerateVAO();
         void StoreDataInAttribList(unsigned int attribNum, unsigned int components, std::vector<float> data);
+
         void ProcessFace(int faceVertices[3][3], std::vector<unsigned int>& indices, std::vector<glm::vec2>& textures, 
                         std::vector<glm::vec3> &normals, std::vector<float> &texturesData, std::vector<float>& normalsData);
         
-        std::map<unsigned int, SPtr<Shader>>* GetShaderMap();
+        std::map<unsigned int, SPtr<Shader>>* GetShaderMap();                   /* todo: use this to display currently active shader programs in Gui */
+
+        
+        
+        MeshData LoadToVAO(std::vector<float>& data, unsigned int dim);
+        MeshData LoadToVAO(std::vector<float>& pos, std::vector<float>& textCoords, 
+                           std::vector<float>& normals, std::vector<unsigned int>& indices);
 
     public:
         static AssetManager& Get()
@@ -53,11 +60,8 @@ namespace Anim
         std::string ReadShaderComponentFile(const std::string& filepath, ShaderComponentType shaderType);
 
         SPtr<Mesh> LoadMesh(const std::string& filepath);
-        MeshData LoadOBJFile(const std::string& filepath);
-        
-        MeshData LoadToVAO(std::vector<float>& data, unsigned int dim);
-        MeshData LoadToVAO(std::vector<float>& pos, std::vector<float>& textCoords, 
-                           std::vector<float>& normals, std::vector<unsigned int>& indices);
+        MeshData LoadOBJFile(const std::string& filepath);                      /* loads .obj (wavefront) file format */
+
 
     };
 }

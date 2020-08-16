@@ -5,50 +5,50 @@ using namespace Anim;
 
 static Mesh* s_sphereMesh;
 
-Renderer::Renderer(int sWidth, int sHeight, const std::string& wTitle) : window(sWidth, sHeight, wTitle)
+Renderer::Renderer(int sWidth, int sHeight, const std::string& wTitle) : m_Window(sWidth, sHeight, wTitle)
 {
-    bgColor = {0,0,0};
     GLRenderContext::Init();
-    camera = new Camera({0,0,0},{0,0,0});
+    m_BgColor = {0,0,0};
+    m_Camera = new Camera({0,0,0},{0,0,0});
     s_sphereMesh = new Mesh("/usr/share/anim2/Models/volleyball.obj");
 }
 
 Window& Renderer::GetWindow()
 {
-    return Instance().window;
+    return Instance().m_Window;
 }
 
 Camera* Renderer::GetCamera()
 {
-    return Instance().camera;
+    return Instance().m_Camera;
 }
 
 void Renderer::SetBackgroundColor(const Vec3& color)
 {
-    Instance().bgColor = color;
+    Instance().m_BgColor = color;
 }
 
 void Renderer::Begin()
 {
-    GLRenderContext::ClearScreen(Instance().bgColor);
+    GLRenderContext::ClearScreen(Instance().m_BgColor);
 }
 
-void Renderer::Submit(Frame& Frame, float dt)
+void Renderer::Submit(Frame& frame, float dt)
 {
-    Instance().currentFrame = &Frame;
-    Instance().camera->Update(dt);
-    RenderSpheres(Frame.GetSpheres());
+    Instance().m_CurrentFrame = &frame;
+    Instance().m_Camera->Update(dt);
+    RenderSpheres(frame.GetSpheres());
 }
 
 void Renderer::End()
 {
-    Instance().window.Update();
+    Instance().m_Window.Update();
 }
 
 void Renderer::RenderSpheres(std::vector<SphereData>& spheres)
 {
-    Frame* frame = Instance().currentFrame;
-    Camera camera = *Instance().camera;
+    Frame frame = *Instance().m_CurrentFrame;
+    Camera camera = *Instance().m_Camera;
     
     Mesh& sphereMesh = *s_sphereMesh;
     sphereMesh.GetMaterial()->Bind();
@@ -57,12 +57,12 @@ void Renderer::RenderSpheres(std::vector<SphereData>& spheres)
 
     sphereMesh.GetMaterial()->LoadViewMatrix(camera.GetViewMatrix());
     sphereMesh.GetMaterial()->LoadProjectionMatrix(camera.GetProjectionMatrix());
-    sphereMesh.GetMaterial()->LoadLights(frame->GetLights());
+    sphereMesh.GetMaterial()->LoadLights(frame.GetLights());
 
     for(uint32 i = 0; i < spheres.size(); i++)
     {
-        sphereMesh.GetMaterial()->LoadModelMatrix(spheres[i].transform);
-        sphereMesh.GetMaterial()->LoadColor(spheres[i].color);
+        sphereMesh.GetMaterial()->LoadModelMatrix(spheres[i].Transform);
+        sphereMesh.GetMaterial()->LoadColor(spheres[i].Color);
         vao->Bind();
         vao->EnableAttribute(0);
         vao->EnableAttribute(1);
@@ -79,7 +79,7 @@ void Renderer::RenderSpheres(std::vector<SphereData>& spheres)
 /* Compute Shaders are WIP */
 void Renderer::RunComputeShader(GLComputeShader& cs, float dt)
 {
-    Frame* currentFrame = Instance().currentFrame;
+    Frame* currentFrame = Instance().m_CurrentFrame;
 
     float forceRadii = 5;
     cs.BindCS();
@@ -88,8 +88,8 @@ void Renderer::RunComputeShader(GLComputeShader& cs, float dt)
     
     cs.Compute();
 
-    cs.SetProjMatrix(Instance().camera->GetProjectionMatrix());
-    cs.SetViewMatrix(Instance().camera->GetViewMatrix());
+    cs.SetProjMatrix(Instance().m_Camera->GetProjectionMatrix());
+    cs.SetViewMatrix(Instance().m_Camera->GetViewMatrix());
     
     GLRenderContext::DrawPointsInstanced(cs.GetNumObjects());
     

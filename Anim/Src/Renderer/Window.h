@@ -16,21 +16,20 @@ namespace Anim
 class Window : public EventListener
 {
 	Window(const Window& other) {}
-	GLFWwindow* window;
-	// GLFWimage winIcon[1];
 
-	int height;
-	int width;
-	std::string title;
+	std::string m_Title;
+	int m_Height;
+	int m_Width;
+	GLFWwindow* m_WindowContext;
 
-	KeyEventDispatcher keyDispatcher;
-	MouseEventDispatcher mouseDispatcher;
-	WindowEventDispatcher windowDispatcher;
+	KeyEventDispatcher m_KeyDispatcher;
+	MouseEventDispatcher m_MouseDispatcher;
+	WindowEventDispatcher m_WindowDispatcher;
 
 public:
 	Window();
 	Window(int width, int height, std::string title);
-	Window(int width, int height, std::string title, bool border);
+
 	virtual ~Window();
 
 	void OnAttach();

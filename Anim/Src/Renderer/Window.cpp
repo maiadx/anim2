@@ -94,30 +94,14 @@ static void ErrorCallback(int code, const char* message)
 
 Window::Window()
 {
-	this->width = 1920;
-	this->height = 1080;
-	this->title = " ";
-}
-
-Window::Window(int width, int height, const std::string name)
-{
-	this->width = width;
-	this->height = height;
-	this->title = name;
+	this->m_Width = 1920;
+	this->m_Height = 1080;
+	this->m_Title = " ";
 	Init();
 }
 
-/* set window border T/F */
-Window::Window(int width, int height, std::string title, bool border)
+Window::Window(int width, int height, const std::string title) : m_Width(width), m_Height(height), m_Title(title)
 {
-	this->width = width;
-	this->height = height;	
-	this->title = title;
-
-	if (!border)
-	{
-		glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-	}
 	Init();
 }
 
@@ -131,7 +115,7 @@ void Window::Destroy()
 	// ImGui_ImplOpenGL3_Shutdown();
     // ImGui_ImplGlfw_Shutdown();
     // ImGui::DestroyContext();
-	glfwDestroyWindow(window);
+	glfwDestroyWindow(m_WindowContext);
 }
 
 
@@ -149,40 +133,27 @@ void Window::Init()
 		Log::Error("GLFW failed to initialize!");
 	}
 
-	this->window = glfwCreateWindow(width, height, this->title.c_str(), NULL, NULL);	// third argument makes window full screen if:
+	this->m_WindowContext = glfwCreateWindow(m_Width, m_Height, m_Title.c_str(), NULL, NULL);	// third argument makes window full screen if:
 
-	if (!window)
+	if (!m_WindowContext)
 	{
 		Log::Error("Window creation failed!");
 	}
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(m_WindowContext);
 
 	glfwSwapInterval(1);																	/* limits fps to native refresh rate */
 	glfwWindowHint(GLFW_SAMPLES, 8);				
 
-	s_keyDispatcher = &this->keyDispatcher;
-	s_mouseDispatcher = &this->mouseDispatcher;				
-	s_winDispatcher = &this->windowDispatcher;
+	s_keyDispatcher = &this->m_KeyDispatcher;
+	s_mouseDispatcher = &this->m_MouseDispatcher;				
+	s_winDispatcher = &this->m_WindowDispatcher;
 
 	glfwSetErrorCallback(ErrorCallback);
-	glfwSetKeyCallback(window, KeyboardHandler);
-	glfwSetMouseButtonCallback(window, MouseButtonHandler);
-	glfwSetCursorPosCallback(window, MousePositionHandler);
-	glfwSetScrollCallback(window, MouseScrollHandler);
-	glfwSetFramebufferSizeCallback(window, WindowResizeHandler);
-
-	// GLFWcursor* cursor = glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR);
-	// glfwSetCursor(window, cursor);
-
-	// win_icon[0].pixels = stbi_load(" ", &win_icon[0].width, &win_icon[0].height, 0, 4);
-	// if(win_icon[0].pixels)
-	// {
-	// 	glfwSetWindowIcon(window, 1, win_icon);
-	// 	LOG_INFO("loaded successfully.");
-	// }
-	//RenderCall::Init(window);
-	// aspectRatio = this->width / this->height;
-
+	glfwSetKeyCallback(m_WindowContext, KeyboardHandler);
+	glfwSetMouseButtonCallback(m_WindowContext, MouseButtonHandler);
+	glfwSetCursorPosCallback(m_WindowContext, MousePositionHandler);
+	glfwSetScrollCallback(m_WindowContext, MouseScrollHandler);
+	glfwSetFramebufferSizeCallback(m_WindowContext, WindowResizeHandler);
 
 }
 
@@ -201,7 +172,7 @@ void Window::OnEvent(const Event& e)
 
 void Window::Update()
 {
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(m_WindowContext);
 	glfwPollEvents();
 }
 
@@ -222,21 +193,21 @@ WindowEventDispatcher& Window::GetWinEventDispatcher()
 
 bool Window::IsRunning()
 {
-	return !glfwWindowShouldClose(this->window);
+	return !glfwWindowShouldClose(m_WindowContext);
 }
 
 int Window::GetWidth()
 {
-	return width;
+	return m_Width;
 }
 
 int Window::GetHeight()
 {
-	return height;
+	return m_Height;
 }
 
 GLFWwindow* Window::GetWindow()
 {
-	return this->window;
+	return m_WindowContext;
 }
 

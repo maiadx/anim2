@@ -71,7 +71,7 @@ void Application::RunCommand(std::vector<std::string>& inputCmd)
 
 		m_Frame.CreateSphere(position, color, scale);
 	
-    }  else if(inputCmd[0] == "cc") { 				 		/* set new clear color bg */
+    }  else if(inputCmd[0] == "cc") { 				 			/* set new clear color bg */
 		Vec3 color;
 		color.x = atof(inputCmd[1].c_str());
 		color.y = atof(inputCmd[2].c_str());
@@ -79,13 +79,13 @@ void Application::RunCommand(std::vector<std::string>& inputCmd)
 
 		Renderer::SetBackgroundColor(color);
 
-	} else if(inputCmd[0] == "dt") {   			     		/* draw text */
+	} else if(inputCmd[0] == "dt") {   			     			/* draw text */
 		
 		m_Gui.DrawUserText(TokensToString(inputCmd, 1));
 
-	} else if(inputCmd[0] == "gr") {                            /* graph */
+	} else if(inputCmd[0] == "pl") {                            /* graph */
     
-        std::string name = inputCmd[1];                 	   /* first arg of graph is name, then data */
+        std::string name = inputCmd[1];                 	    /* first arg of 'plot' command is name, followed by the data */
         std::vector<float> data(inputCmd.size()-2);
         
         for(uint32_t i = 2; i < inputCmd.size(); i++)
@@ -137,7 +137,6 @@ void Application::ScanInput()
   	// if (fgets(line,299, stdin) == NULL) {} // to make the compiler happy; we don't really care
     // if (feof(stdin)) {usleep(1000);return;}
 
-
     std::string input;
 
     std::getline(std::cin, input);
@@ -154,6 +153,7 @@ void Application::ScanInput()
     RunCommand(tokens);    
 }
 
+/* Client-side design of Compute Shader portion of the API is still ongoing, so Compute Shaders are currently disabled. */
 void Application::RunComputeShaderProgram(const std::string& filepath)
 {
 	// std::vector<Particle> particles;

@@ -19,28 +19,28 @@ void Frame::CreateSphere(Vec3& position, Vec3& color, float scale)
 {
     SphereData sphere;
     Vec3 rotation = {0,0,0};
-    sphere.transform = Math::CreateTransformationMatrix(position, rotation, scale);
-    sphere.color = color;
-    spheres.emplace_back(sphere);
+    sphere.Transform = Math::CreateTransformationMatrix(position, rotation, scale);
+    sphere.Color = color;
+    m_Spheres.emplace_back(sphere);
 }
 
 void Frame::CreateLight(const Vec3& pos, const Vec3& color, uint32_t slot)
 {
-    lights[slot] = Light(pos, color);
+    m_Lights[slot] = Light(pos, color);
 }
 
 void Frame::ClearFrame()
 {
-    spheres.clear();
+    m_Spheres.clear();
 }
 
 std::vector<SphereData>& Frame::GetSpheres()
 {
-    return spheres;
+    return m_Spheres;
 }
 
 std::array<Light, 3>& Frame::GetLights()
 {
-    return lights;
+    return m_Lights;
 }
 

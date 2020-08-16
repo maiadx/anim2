@@ -9,7 +9,7 @@ using namespace Anim;
 /* each asset (Shader, Mesh) has its own ID to avoid loading the same data from a file twice */
 unsigned int AssetManager::GenAssetID()
 {
-    return ++currentIDPtr;                                          /* reserve index 0 for a failed search result */
+    return ++m_CurrentID;                                          /* reserve index 0 for a failed search result */
 }
 
 unsigned int AssetManager::FindAssetID(std::map<const std::string, unsigned int>& fileMap, const std::string& filepath)
@@ -27,30 +27,30 @@ unsigned int AssetManager::FindAssetID(std::map<const std::string, unsigned int>
 
 SPtr<Mesh> AssetManager::LoadMesh(const std::string& filepath)
 {
-    unsigned int assetID = FindAssetID(meshFilepaths, filepath);
+    unsigned int assetID = FindAssetID(m_MeshFilepaths, filepath);
 
     if(assetID != 0)
     {
-        meshRefs[assetID];
+        m_MeshRefs[assetID];
     }
     assetID = GenAssetID();
-    meshRefs.insert(std::pair<unsigned int, SPtr<Mesh>>(assetID, std::make_shared<Mesh>(filepath)));
-    meshFilepaths.insert(std::pair<std::string, unsigned int>(filepath, assetID));
-    return meshRefs[assetID];
+    m_MeshRefs.insert(std::pair<unsigned int, SPtr<Mesh>>(assetID, std::make_shared<Mesh>(filepath)));
+    m_MeshFilepaths.insert(std::pair<std::string, unsigned int>(filepath, assetID));
+    return m_MeshRefs[assetID];
 }
 
 SPtr<Shader> AssetManager::LoadShader(const std::string& filepath)
 {
-    unsigned int assetID = FindAssetID(shaderFilepaths, filepath);
+    unsigned int assetID = FindAssetID(m_ShaderFilepaths, filepath);
 
     if(assetID != 0)
     {
-        return shaderRefs[assetID];
+        return m_ShaderRefs[assetID];
     }
     assetID = GenAssetID();
-    shaderRefs.insert(std::pair<unsigned int, SPtr<Shader>>(assetID, Shader::Create(filepath)));
-    shaderFilepaths.insert(std::pair<std::string, unsigned int>(filepath, assetID));
-    return shaderRefs[assetID];
+    m_ShaderRefs.insert(std::pair<unsigned int, SPtr<Shader>>(assetID, Shader::Create(filepath)));
+    m_ShaderFilepaths.insert(std::pair<std::string, unsigned int>(filepath, assetID));
+    return m_ShaderRefs[assetID];
 }
 
 void AssetManager::StoreDataInAttribList(unsigned int attribNum, unsigned int dimensions, std::vector<float> data)
@@ -65,7 +65,7 @@ void AssetManager::StoreDataInAttribList(unsigned int attribNum, unsigned int di
 
 std::map<unsigned int, SPtr<Shader>>* AssetManager::GetShaderMap()
 {
-    return &shaderRefs;
+    return &m_ShaderRefs;
 }
 
 /* loads a single vertex buffer object to VAO */
@@ -81,9 +81,11 @@ MeshData AssetManager::LoadToVAO(std::vector<float>& positions, unsigned int dim
     
     delete vbo;
     MeshData meshData;
-    meshData.vao = vao;
-    meshData.numVertices = positions.size()/dim;
-    meshData.numIndices = positions.size()/dim;
+
+    meshData.Vao = vao;
+    meshData.NumVertices = positions.size()/dim;
+    meshData.NumIndices = positions.size()/dim;
+    
     return meshData;
 }
 
@@ -93,6 +95,7 @@ MeshData AssetManager::LoadToVAO(std::vector<float>& positions, std::vector<floa
 {
     VertexArray* vao = VertexArray::Generate();
     vao->Bind();
+
     VertexBuffer* positionsBuffer = VertexBuffer::Create(VertexBufferDataType::ARRAY_BUFFER, VertexBufferUsageType::STATIC_DRAW);
     VertexBuffer* normalsBuffer = VertexBuffer::Create(VertexBufferDataType::ARRAY_BUFFER, VertexBufferUsageType::STATIC_DRAW);
     VertexBuffer* texCoordsBuffer = VertexBuffer::Create(VertexBufferDataType::ARRAY_BUFFER, VertexBufferUsageType::STATIC_DRAW);
@@ -121,9 +124,9 @@ MeshData AssetManager::LoadToVAO(std::vector<float>& positions, std::vector<floa
     delete texCoordsBuffer;
     
     MeshData meshData; 
-    meshData.vao = vao;
-    meshData.numIndices = numIndices;
-    meshData.numVertices = positions.size()/3;
+    meshData.Vao = vao;
+    meshData.NumIndices = numIndices;
+    meshData.NumVertices = positions.size()/3;
     return meshData;
 }   
 
@@ -301,6 +304,6 @@ MeshData AssetManager::LoadOBJFile(const std::string& filepath)
         verticesData.push_back(vertex.z);
     }
     MeshData meshData = LoadToVAO(verticesData, texturesData, normalsData, indices);
-    meshData.numVertices = vertices.size();
+    meshData.NumVertices = vertices.size();
     return meshData;
 }

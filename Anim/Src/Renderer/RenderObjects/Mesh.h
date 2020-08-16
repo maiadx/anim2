@@ -9,11 +9,11 @@ class Mesh
 {
 
 protected:
-	SPtr<Material> material;
-	VertexArray* vao;
+	SPtr<Material> m_Material;
+	VertexArray* m_Vao;
 
-	unsigned int numVertices;
-	unsigned int numIndices;
+	unsigned int m_NumVertices;
+	unsigned int m_NumIndices;
 
 public:
 	Mesh(const std::string& filepath);
