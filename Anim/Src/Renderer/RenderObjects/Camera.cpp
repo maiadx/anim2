@@ -5,19 +5,20 @@
 #include <GLFW/glfw3.h>
 using namespace Anim;
 
-Camera::Camera(const glm::vec3& pos, const glm::vec3& rot) : pivot(pos)
+Camera::Camera(const glm::vec3& position, const glm::vec3& rotation) : m_Pivot(position)
 {
-	this->roll = Math::ToRadians(rot.x);
-	this->pitch = Math::ToRadians(rot.y);
-	this->yaw = Math::ToRadians(rot.z);
-	this->zoom = 0.0f;
-	position = glm::vec3(0,0,0);
-	velocity = glm::vec3(0,0,0);
+	m_Roll = Math::ToRadians(rotation.x);
+	m_Pitch = Math::ToRadians(rotation.y);
+	m_Yaw = Math::ToRadians(rotation.z);
 	
-    angleAroundPivot = M_PI;
-    distToPivot = 30;
-	zoom = 0;
+	m_Zoom = 0.0f;
+	m_Position = glm::vec3(0,0,0);
+	m_Velocity = glm::vec3(0,0,0);
+	
+    m_AngleAroundPivot = M_PI;
+    m_DistToPivot = 30;
 	Update(0);
+
 	for(int i = 0; i < 348; i++)
 	{
 		keyboard.SetKeyStatus(i, false);
@@ -65,7 +66,7 @@ void Camera::OnEvent(const Event& e)
 		mouse.SetDScroll(((const MouseScrollEvent&)e).GetYOffset() * -3);
 		break;
 	case EventType::WINDOW_RESIZE:
-		this->camAspectRatio = ((const WindowResizeEvent&)e).GetScreenWidth() / ((const WindowResizeEvent&)e).GetScreenHeight();
+		this->m_AspectRatio = ((const WindowResizeEvent&)e).GetScreenWidth() / ((const WindowResizeEvent&)e).GetScreenHeight();
 		break;
 	default:
 		break;
@@ -83,58 +84,58 @@ void Camera::OnEvent(const Event& e)
 
 void Camera::Update(float dt)
 {
-	distToPivot += mouse.GetDScroll() * 2 * distToPivot *  dt;
-	distToPivot = Math::Max(distToPivot, NEAR_PLANE);
+	m_DistToPivot += mouse.GetDScroll() * 2 * m_DistToPivot *  dt;
+	m_DistToPivot = Math::Max(m_DistToPivot, NEAR_PLANE);
 
 	if(mouse.IsButtonDown(MouseCode::M_BUTTON_RIGHT) || mouse.IsButtonDown(MouseCode::M_BUTTON_MID))
 	{
 		if(keyboard.IsKeyDown(GLFW_KEY_LEFT_SHIFT))
 		{
-			float dx = mouse.GetDX() * Math::Max(distToPivot, 2.0f)/500.0f;
-			float dy = mouse.GetDY() * Math::Max(distToPivot, 2.0f)/500.0f;
+			float dx = mouse.GetDX() * Math::Max(m_DistToPivot, 2.0f)/500.0f;
+			float dy = mouse.GetDY() * Math::Max(m_DistToPivot, 2.0f)/500.0f;
 
-			pivot.x -= dx * cosf(yaw) - dy * sinf(pitch) * sinf(yaw);
-			pivot.y += dy * cosf(pitch);
-			pivot.z -= dx * sinf(yaw) + dy * sinf(pitch) * cosf(yaw);
+			m_Pivot.x -= dx * cosf(m_Yaw) - dy * sinf(m_Pitch) * sinf(m_Yaw);
+			m_Pivot.y += dy * cosf(m_Pitch);
+			m_Pivot.z -= dx * sinf(m_Yaw) + dy * sinf(m_Pitch) * cosf(m_Yaw);
 
 		} else {
-			pitch -= mouse.GetDY()/200;
-			angleAroundPivot += mouse.GetDX()/200;
+			m_Pitch -= mouse.GetDY()/200;
+			m_AngleAroundPivot += mouse.GetDX()/200;
 		}
 	}
 
-	float h_distance = distToPivot * cosf(pitch);
-	float v_distance = distToPivot * sinf(pitch); 
+	float h_distance = m_DistToPivot * cosf(m_Pitch);
+	float v_distance = m_DistToPivot * sinf(m_Pitch); 
 
-	float theta = angleAroundPivot;
+	float theta = m_AngleAroundPivot;
 	float x_offset = h_distance * sinf(theta);
 	float z_offset = h_distance * cosf(theta);
 	
-	yaw = M_PI - angleAroundPivot;
-	position.x = pivot.x - x_offset; 
-	position.z = pivot.z - z_offset;
-	position.y = pivot.y + v_distance;
+	m_Yaw = M_PI - m_AngleAroundPivot;
+	m_Position.x = m_Pivot.x - x_offset; 
+	m_Position.z = m_Pivot.z - z_offset;
+	m_Position.y = m_Pivot.y + v_distance;
 }
 
 
 Mat4 Camera::GetViewMatrix()
 {
-	return Math::GenerateViewMatrix({position.x, position.y, position.z}, {pitch, yaw, roll});
+	return Math::GenerateViewMatrix({m_Position.x, m_Position.y, m_Position.z}, {m_Pitch, m_Yaw, m_Roll});
 }
 
 const Mat4& Camera::GetProjectionMatrix()
 {
-	return projectionMatrix;
+	return m_ProjectionMatrix;
 }
 
 Mat4 Camera::GetViewProjectionMatrix()
 {
-	return viewMatrix * projectionMatrix;
+	return m_ViewMatrix * m_ProjectionMatrix;
 }
 
 void Camera::GenerateProjectionMatrix()
 {
-	projectionMatrix = glm::perspective(glm::radians(FOV+zoom), camAspectRatio, NEAR_PLANE, FAR_PLANE);	
+	m_ProjectionMatrix = glm::perspective(glm::radians(FOV+m_Zoom), m_AspectRatio, NEAR_PLANE, FAR_PLANE);	
 }
 
 // glm::mat4& Camera::ResetProjectionMatrix()
@@ -145,22 +146,22 @@ void Camera::GenerateProjectionMatrix()
 
 void Camera::SetPivot(glm::vec3& pivot)
 {
-	this->pivot = pivot;
+	m_Pivot = pivot;
 }
 
 glm::vec3& Camera::GetPosition()
 {
-	return position;
+	return m_Position;
 }
 
-void Camera::SetZoom(float z)
+void Camera::SetZoom(float zoom)
 {
-	if(z < MAX_ZOOM)
+	if(zoom < MAX_ZOOM)
 	{
-		this->zoom = MAX_ZOOM;
-	} else if(z > MIN_ZOOM) {
-		this->zoom = MIN_ZOOM;
+		m_Zoom = MAX_ZOOM;
+	} else if(zoom > MIN_ZOOM) {
+		m_Zoom = MIN_ZOOM;
 	} else {
-	this->zoom = z;
+	m_Zoom = zoom;
 	}
 }

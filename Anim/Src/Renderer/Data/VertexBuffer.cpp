@@ -49,7 +49,7 @@ GLVertexBuffer::GLVertexBuffer(VertexBufferDataType bufferType, VertexBufferUsag
         break;  
     };
 
-    glGenBuffers(1, &vboID);
+    glGenBuffers(1, &m_VboID);
 }
 
 GLVertexBuffer::~GLVertexBuffer()
@@ -59,7 +59,7 @@ GLVertexBuffer::~GLVertexBuffer()
 
 void GLVertexBuffer::Bind()
 {
-    glBindBuffer(bufferDataType, vboID);
+    glBindBuffer(bufferDataType, m_VboID);
 }
 void GLVertexBuffer::Unbind()
 {

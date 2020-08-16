@@ -5,6 +5,10 @@ namespace Anim
 {
 class VertexArray
 {
+protected:
+    unsigned int m_VaoID;
+    unsigned int m_NumAttributes;
+
 public:
     static VertexArray* Generate();
     virtual ~VertexArray(){}
@@ -14,9 +18,7 @@ public:
     virtual void EnableAttribute(unsigned int attribNum) = 0;
     virtual void DisableAttribute(unsigned int attribNum) = 0;
 
-protected:
-    unsigned int vaoID;
-    unsigned int numAttributes;
+
 };
 
 

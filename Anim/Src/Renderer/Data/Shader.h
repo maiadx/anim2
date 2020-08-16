@@ -39,7 +39,8 @@ public:
 class GLShader : public Shader
 {
 protected:
-	unsigned int shaderID;
+	unsigned int m_ShaderID;
+	
 	unsigned int BuildComponent(const std::string& fp, ShaderComponentType componentType);
     bool LinkErrorCheck(unsigned int id, ShaderComponentType componentType);
 

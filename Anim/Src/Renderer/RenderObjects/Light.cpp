@@ -4,19 +4,12 @@
 
 using namespace Anim;
 
-Light::Light(const glm::vec3& pos, const glm::vec3& color)
+Light::Light(const glm::vec3& position, const glm::vec3& color) : m_Position(position), m_Color(color)
 {
-    this->position = pos;
-    this->color = color;
-    this->attenuationFactors = glm::vec3(1.0f,0.0f,0.0f);
+    this->m_Attenuation = glm::vec3(1.0f,0.0f,0.0f);
 }
 
-Light::Light(const glm::vec3& pos, const glm::vec3& color, const glm::vec3& a)
-{
-    this->position = pos;
-    this->color = color;
-    this->attenuationFactors = a;
-}
+Light::Light(const glm::vec3& position, const glm::vec3& color, const glm::vec3& attenuation) : m_Position(position), m_Color(color), m_Attenuation(attenuation) {}
 
 Light::~Light()
 {
@@ -25,30 +18,30 @@ Light::~Light()
 
 glm::vec3& Light::GetPosition()
 {
-    return position;
+    return m_Position;
 }
 
 glm::vec3& Light::GetColor()
 {
-    return color;
+    return m_Color;
 }
 
 glm::vec3& Light::GetAttenuation()
 {
-    return this->attenuationFactors;
+    return m_Attenuation;
 }
 
-void Light::SetPosition(const glm::vec3& pos)
+void Light::SetPosition(const glm::vec3& position)
 {
-    this->position = pos;
+    m_Position = position;
 }
 
 void Light::SetColor(glm::vec3 color)
 {
-    this->color = color;
+    m_Color = color;
 }
 
-void Light::SetAttenuation(const glm::vec3& a)
+void Light::SetAttenuation(const glm::vec3& attenuation)
 {
-    this->attenuationFactors = a;
+    m_Attenuation = attenuation;
 }

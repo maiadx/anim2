@@ -21,8 +21,8 @@ GLComputeShader::GLComputeShader(std::vector<Particle>& particles, const std::st
 void GLComputeShader::Setup(std::vector<Particle>& particles)
 {
     this->Bind();
-    loc_viewMatrix = glGetUniformLocation(this->shaderID, "view");
-    loc_projMatrix = glGetUniformLocation(this->shaderID, "projection");
+    loc_viewMatrix = glGetUniformLocation(this->m_ShaderID, "view");
+    loc_projMatrix = glGetUniformLocation(this->m_ShaderID, "projection");
 
     glUseProgram(csProgID);
     glGenVertexArrays(1, &computeVaoID);
@@ -64,7 +64,7 @@ void GLComputeShader::Compute()
     glDispatchCompute( (numObjects/numWorkGroups)+1, 1, 1);
     glMemoryBarrier(GL_ALL_BARRIER_BITS);
 
-    glUseProgram(shaderID);
+    glUseProgram(m_ShaderID);
     glBindVertexArray(computeVaoID);
 }
 

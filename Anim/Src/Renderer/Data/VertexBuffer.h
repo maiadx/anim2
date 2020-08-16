@@ -21,6 +21,9 @@ enum class VertexBufferUsageType : unsigned char
 
 class VertexBuffer
 {
+protected:
+    unsigned int m_VboID;
+
 public:
     static VertexBuffer* Create(VertexBufferDataType bufferType, VertexBufferUsageType bufferUsage);
 
@@ -31,8 +34,7 @@ public:
     virtual void Unbind() = 0;
     virtual void StoreDataInAttribute(unsigned int attribNum, unsigned int dim, std::vector<float>& data) = 0;
 
-protected:
-    unsigned int vboID;
+
 };
 
 class GLVertexBuffer : public VertexBuffer

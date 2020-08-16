@@ -14,28 +14,28 @@ GLShader::GLShader(const std::string& fp)
 {
 	GLuint vertID = BuildComponent(fp, ShaderComponentType::Vertex);
 	GLuint fragID = BuildComponent(fp, ShaderComponentType::Fragment);
-	shaderID = glCreateProgram();
+	m_ShaderID = glCreateProgram();
 
-	glAttachShader(shaderID, vertID);
-	glAttachShader(shaderID, fragID);
+	glAttachShader(m_ShaderID, vertID);
+	glAttachShader(m_ShaderID, fragID);
 
-	glBindAttribLocation(shaderID, 0, "position");
-	glBindAttribLocation(shaderID, 1, "normal");
+	glBindAttribLocation(m_ShaderID, 0, "position");
+	glBindAttribLocation(m_ShaderID, 1, "normal");
 
 	//LOG_WARN("Linking shader...");
-	glLinkProgram(shaderID);
+	glLinkProgram(m_ShaderID);
 	LinkErrorCheck(vertID, ShaderComponentType::Vertex);
 	LinkErrorCheck(fragID, ShaderComponentType::Fragment);
 }
 
 GLShader::~GLShader()
 {
-	glDeleteProgram(shaderID);
+	glDeleteProgram(m_ShaderID);
 }
 
 void GLShader::Bind()
 {
-	glUseProgram(shaderID);
+	glUseProgram(m_ShaderID);
 }
 
 void GLShader::Unbind()
@@ -78,12 +78,12 @@ void GLShader::Compile()
 
 void GLShader::BindAttribute(unsigned int attribID, const std::string& varName)
 {
-	glBindAttribLocation(shaderID, attribID, varName.c_str());
+	glBindAttribLocation(m_ShaderID, attribID, varName.c_str());
 }
 
 unsigned int GLShader::GetUniformLocation(const std::string& varName)
 {
-    return glGetUniformLocation(shaderID, varName.c_str());
+    return glGetUniformLocation(m_ShaderID, varName.c_str());
 }
 
 
@@ -137,8 +137,8 @@ bool GLShader::LinkErrorCheck(unsigned int id, ShaderComponentType componentType
 {
     int errorLength;
 	GLint linkStatus;
-	glGetProgramiv(shaderID, GL_LINK_STATUS, &linkStatus);
-	glGetProgramiv(shaderID, GL_INFO_LOG_LENGTH, &errorLength);
+	glGetProgramiv(m_ShaderID, GL_LINK_STATUS, &linkStatus);
+	glGetProgramiv(m_ShaderID, GL_INFO_LOG_LENGTH, &errorLength);
 
 	if (errorLength > 0)
 	{

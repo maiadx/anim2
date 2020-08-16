@@ -11,7 +11,7 @@ VertexArray* VertexArray::Generate()
 
 unsigned int VertexArray::GetVaoID()
 {
-    return this->vaoID;
+    return m_VaoID;
 }
 
 
@@ -19,17 +19,17 @@ unsigned int VertexArray::GetVaoID()
 
 GLVertexArray::GLVertexArray()
 {
-    glGenVertexArrays(1, &vaoID);
+    glGenVertexArrays(1, &m_VaoID);
 }
 
 GLVertexArray::~GLVertexArray()
 {
-    glDeleteVertexArrays(1, &vaoID);
+    glDeleteVertexArrays(1, &m_VaoID);
 }
 
 void GLVertexArray::Bind()
 {
-    glBindVertexArray(vaoID);
+    glBindVertexArray(m_VaoID);
 }
 
 void GLVertexArray::Unbind()
