@@ -102,32 +102,32 @@ void GLShader::LoadFloat(unsigned int loc, float value)
 	glUniform1f(loc, value);
 }
 
-void GLShader::LoadFloat2(unsigned int loc, const Vec2& vec)
+void GLShader::LoadFloat2(unsigned int loc, const glm::vec2& vec)
 {
 	glUniform2fv(loc, 1, &vec[0]);
 }	
 
-void GLShader::LoadFloat3(unsigned int loc, const Vec3& vec)
+void GLShader::LoadFloat3(unsigned int loc, const glm::vec3& vec)
 {
 	glUniform3fv(loc, 1, &vec[0]);
 }
 
-void GLShader::LoadFloat4(unsigned int loc, const Vec4& vec)
+void GLShader::LoadFloat4(unsigned int loc, const glm::vec4& vec)
 {
 	glUniform4fv(loc, 1, &vec[0]);
 }
 
-void GLShader::LoadMat2(unsigned int loc, const Mat2& mat)
+void GLShader::LoadMat2(unsigned int loc, const glm::mat2& mat)
 {
 	glUniformMatrix2fv(loc, 1, GL_FALSE, &mat[0][0]);
 }
 
-void GLShader::LoadMat3(unsigned int loc, const Mat3& mat)
+void GLShader::LoadMat3(unsigned int loc, const glm::mat3& mat)
 {
 	glUniformMatrix3fv(loc, 1, GL_FALSE, &mat[0][0]);
 }
 
-void GLShader::LoadMat4(unsigned int loc, const Mat4& mat)
+void GLShader::LoadMat4(unsigned int loc, const glm::mat4& mat)
 {
 	glUniformMatrix4fv(loc, 1, GL_FALSE, &mat[0][0]);
 }

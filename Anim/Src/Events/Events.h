@@ -46,9 +46,9 @@ public:
 class EventListener 
 {
 public:
-    virtual ~EventListener(){}                      /* Listeners should always be removed */
-    virtual void OnEvent(const Event& e) = 0;           /* from dispatchers upon destruction. */
-    virtual void OnAttach() = 0;                    /*  Called when listener is attached to dispatcher. */
+    virtual ~EventListener(){}                           /* Listeners should always be removed               */
+    virtual void OnEvent(const Event& e) = 0;           /* from dispatchers upon destruction.               */
+    virtual void OnAttach() = 0;                       /*  Called when listener is attached to dispatcher. */
 
 };  
 

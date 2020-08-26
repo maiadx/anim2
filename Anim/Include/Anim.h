@@ -24,6 +24,7 @@ void AnimDrawSphereIJK(float i, float j, float k, float color[3], float scale)
     printf("sp %f %f %f %f %f %f %f\n", i, j, k, color[0], color[1], color[2], scale);
 }
 
+/* Load Compute Shader given filepath to .comp file [this feature is not yet fully supported.] */
 void AnimLoadComputeShader(const char* filepath)
 {
     printf("cs %s\n", filepath);

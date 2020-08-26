@@ -58,7 +58,7 @@ void Application::RunCommand(std::vector<std::string>& inputCmd)
 {
     if(inputCmd[0] == "sp") {                   /* draw a sphere */
     
-		Vec3 position, color = {0,0,0};
+		glm::vec3 position, color = {0,0,0};
 		position.x = atof(inputCmd[1].c_str());
 		position.y = atof(inputCmd[2].c_str());
 		position.z = atof(inputCmd[3].c_str());
@@ -72,7 +72,7 @@ void Application::RunCommand(std::vector<std::string>& inputCmd)
 		m_Frame.CreateSphere(position, color, scale);
 	
     }  else if(inputCmd[0] == "cc") { 				 			/* set new clear color bg */
-		Vec3 color;
+		glm::vec3 color;
 		color.x = atof(inputCmd[1].c_str());
 		color.y = atof(inputCmd[2].c_str());
 		color.z = atof(inputCmd[3].c_str());
@@ -171,9 +171,9 @@ void Application::RunComputeShaderProgram(const std::string& filepath)
 
 	// 	if(tokens[0] == "ap")
 	// 	{
-	// 		Vec3 position = { atof(tokens[0].c_str()), atof(tokens[1].c_str()), atof(tokens[2].c_str()) };
-	// 		Vec3 velocity = { atof(tokens[3].c_str()), atof(tokens[4].c_str()), atof(tokens[5].c_str()) };
-	// 		Vec3 color    = { atof(tokens[6].c_str()), atof(tokens[7].c_str()), atof(tokens[8].c_str()) };
+	// 		glm::vec3 position = { atof(tokens[0].c_str()), atof(tokens[1].c_str()), atof(tokens[2].c_str()) };
+	// 		glm::vec3 velocity = { atof(tokens[3].c_str()), atof(tokens[4].c_str()), atof(tokens[5].c_str()) };
+	// 		glm::vec3 color    = { atof(tokens[6].c_str()), atof(tokens[7].c_str()), atof(tokens[8].c_str()) };
 	// 		float mass = atof(tokens[9].c_str());
 
 	// 		particles.emplace_back(position, velocity, color, mass);

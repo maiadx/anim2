@@ -100,13 +100,14 @@ namespace Anim
 		MouseStates mouse;
 		KeyboardStates keyboard;
 
-		Vec3 m_Position;
-		Vec3 m_Velocity;
+		glm::vec3 m_Position;
+		glm::vec3 m_Velocity;
 		/* --- */
 
-		Vec3 m_Pivot;							/* point the camera rotates around */
-		Mat4 m_ProjectionMatrix;
-		Mat4 m_ViewMatrix;
+		glm::vec3 m_Pivot;							/* point the camera rotates around */
+		glm::mat4 m_ProjectionMatrix;
+		glm::mat4 m_ViewMatrix;
+
 		float m_Yaw;
 		float m_Pitch;
 		float m_Roll;
@@ -117,7 +118,7 @@ namespace Anim
 		float m_MoveSpeed;
 		float m_AngleAroundPivot;
 		float m_DistToPivot;
-		Vec3 m_DeltaPos;
+		glm::vec3 m_DeltaPos;
 
 
 		const float FOV = 60.0f;				/* 60 -> ~80 is recommended */
@@ -149,9 +150,9 @@ namespace Anim
 		inline float GetPitch() { return m_Pitch; }
 		inline float GetYaw()   { return m_Yaw;   }
 
-		const Mat4& GetProjectionMatrix();
-		Mat4 GetViewMatrix();
-		Mat4 GetViewProjectionMatrix();
+		const glm::mat4& GetProjectionMatrix();
+		glm::mat4 GetViewMatrix();
+		glm::mat4 GetViewProjectionMatrix();
 
 		void SetPivot(glm::vec3& pivot);
 		void SetZoom(float zoom);

@@ -6,17 +6,15 @@ using namespace Anim;
 
 Mesh::Mesh(const std::string& filepath)
 {	
-	MeshData meshData = AssetManager::Get().LoadOBJFile(filepath);
+	m_MeshData = AssetManager::Get().LoadOBJFile(filepath);
 	
-	this->m_Vao = meshData.Vao;
-	this->m_NumIndices = meshData.NumIndices;
-	this->m_NumVertices = meshData.NumVertices;
+
 	this->m_Material = std::make_shared<Material>();
 }
 
 Mesh::~Mesh()
 {
-	delete m_Vao;
+	delete m_MeshData.Vao;
 
 }
 
@@ -32,15 +30,15 @@ SPtr<Material> Mesh::GetMaterial()
 
 unsigned int Mesh::GetNumIndices()
 {
-	return this->m_NumIndices;
+	return this->m_MeshData.NumIndices;
 }
 
 VertexArray* Mesh::GetVao()
 {
-	return m_Vao;
+	return m_MeshData.Vao;
 }
 
 unsigned int Mesh::GetNumVertices()
 {
-	return this->m_NumVertices;
+	return this->m_MeshData.NumVertices;
 }

@@ -118,17 +118,17 @@ void Camera::Update(float dt)
 }
 
 
-Mat4 Camera::GetViewMatrix()
+glm::mat4 Camera::GetViewMatrix()
 {
 	return Math::GenerateViewMatrix({m_Position.x, m_Position.y, m_Position.z}, {m_Pitch, m_Yaw, m_Roll});
 }
 
-const Mat4& Camera::GetProjectionMatrix()
+const glm::mat4& Camera::GetProjectionMatrix()
 {
 	return m_ProjectionMatrix;
 }
 
-Mat4 Camera::GetViewProjectionMatrix()
+glm::mat4 Camera::GetViewProjectionMatrix()
 {
 	return m_ViewMatrix * m_ProjectionMatrix;
 }

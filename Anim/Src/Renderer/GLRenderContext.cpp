@@ -35,7 +35,7 @@ void GLRenderContext::ErrorCheck()
 }
 
 
-void GLRenderContext::ClearScreen(const Vec3& color)
+void GLRenderContext::ClearScreen(const glm::vec3& color)
 {
     glClearColor(color.x, color.y, color.z, 1.0f);    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

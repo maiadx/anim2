@@ -15,16 +15,16 @@ Frame::~Frame()
     ClearFrame();           /* clean up any left over spheres */
 }
 
-void Frame::CreateSphere(Vec3& position, Vec3& color, float scale)
+void Frame::CreateSphere(glm::vec3& position, glm::vec3& color, float scale)
 {
     SphereData sphere;
-    Vec3 rotation = {0,0,0};
+    glm::vec3 rotation = {0,0,0};
     sphere.Transform = Math::CreateTransformationMatrix(position, rotation, scale);
     sphere.Color = color;
     m_Spheres.emplace_back(sphere);
 }
 
-void Frame::CreateLight(const Vec3& pos, const Vec3& color, uint32_t slot)
+void Frame::CreateLight(const glm::vec3& pos, const glm::vec3& color, uint32 slot)
 {
     m_Lights[slot] = Light(pos, color);
 }

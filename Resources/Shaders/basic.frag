@@ -26,11 +26,11 @@ void main()
         for(int i = 0; i < 1; i++)
         {
                 float distToSrc = length(toLightDir[i]);
-                float att_factor = test_att.x + (default_attenuation.y * distToSrc) + (default_attenuation.z * distToSrc * distToSrc);
+                float att_factor = default_attenuation.x + (default_attenuation.y * distToSrc) + (default_attenuation.z * distToSrc * distToSrc);
                 
                 vec3 unit_toLightDir = normalize(toLightDir[i]);
                 float relativeDir = dot(unit_normal, unit_toLightDir);
-                float brightness = max(relativeDir, 0.0);
+                float brightness = max(relativeDir, 0.06f);
 
                 vec3 lightDir = -unit_toLightDir;
                 vec3 lightReflectDir = reflect(lightDir, unit_normal);

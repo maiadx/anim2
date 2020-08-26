@@ -24,12 +24,12 @@ public:
 	virtual void LoadInt(unsigned int loc, int value) = 0;
 	virtual void LoadBool(unsigned int loc, bool flag) = 0;
 	virtual void LoadFloat(unsigned int loc, float value) = 0;
-	virtual void LoadFloat2(unsigned int loc, const Vec2& vec) = 0;	
-	virtual void LoadFloat3(unsigned int loc, const Vec3& vec) = 0;
-	virtual void LoadFloat4(unsigned int loc, const Vec4& vec) = 0;
-	virtual void LoadMat2(unsigned int loc, const Mat2& mat) = 0;
-	virtual void LoadMat3(unsigned int loc, const Mat3& mat) = 0;
-	virtual void LoadMat4(unsigned int loc, const Mat4& mat) = 0;
+	virtual void LoadFloat2(unsigned int loc, const glm::vec2& vec) = 0;	
+	virtual void LoadFloat3(unsigned int loc, const glm::vec3& vec) = 0;
+	virtual void LoadFloat4(unsigned int loc, const glm::vec4& vec) = 0;
+	virtual void LoadMat2(unsigned int loc, const glm::mat2& mat) = 0;
+	virtual void LoadMat3(unsigned int loc, const glm::mat3& mat) = 0;
+	virtual void LoadMat4(unsigned int loc, const glm::mat4& mat) = 0;
 
 
  
@@ -57,12 +57,12 @@ public:
 	void LoadInt(unsigned int loc, int value);
 	void LoadBool(unsigned int loc, bool flag);
 	void LoadFloat(unsigned int loc, float value);
-	void LoadFloat2(unsigned int loc, const Vec2& vec);	
-	void LoadFloat3(unsigned int loc, const Vec3& vec);
-	void LoadFloat4(unsigned int loc, const Vec4& vec);
-	void LoadMat2(unsigned int loc, const Mat2& mat);
-	void LoadMat3(unsigned int loc, const Mat3& mat);
-	void LoadMat4(unsigned int loc, const Mat4& mat);
+	void LoadFloat2(unsigned int loc, const glm::vec2& vec);	
+	void LoadFloat3(unsigned int loc, const glm::vec3& vec);
+	void LoadFloat4(unsigned int loc, const glm::vec4& vec);
+	void LoadMat2(unsigned int loc, const glm::mat2& mat);
+	void LoadMat3(unsigned int loc, const glm::mat3& mat);
+	void LoadMat4(unsigned int loc, const glm::mat4& mat);
 
 };
 }

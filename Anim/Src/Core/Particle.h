@@ -6,8 +6,8 @@ namespace Anim
 {
     struct Particle
     {
-        Vec3 Position;
-        Vec3 Velocity;
+        glm::vec3 Position;
+        glm::vec3 Velocity;
         float Mass;
     };
 }

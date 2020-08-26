@@ -92,12 +92,12 @@ unsigned int GLComputeShader::GetNumObjects()
     return numObjects;
 }
 
-void GLComputeShader::SetViewMatrix(const Mat4& viewMat)
+void GLComputeShader::SetViewMatrix(const glm::mat4& viewMat)
 {
     this->LoadMat4(loc_viewMatrix, viewMat);
 }
 
-void GLComputeShader::SetProjMatrix(const Mat4& projMat)
+void GLComputeShader::SetProjMatrix(const glm::mat4& projMat)
 {
     this->LoadMat4(loc_projMatrix, projMat);
 }

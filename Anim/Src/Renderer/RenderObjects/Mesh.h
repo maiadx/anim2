@@ -5,26 +5,30 @@
 #include "Renderer/Data/VertexArray.h"
 namespace Anim 
 {
-class Mesh 
-{
+	struct MeshData
+	{
+		VertexArray* Vao;
+		uint32 NumIndices;
+		uint32 NumVertices;
+	};
 
-protected:
-	SPtr<Material> m_Material;
-	VertexArray* m_Vao;
+	class Mesh 
+	{
 
-	unsigned int m_NumVertices;
-	unsigned int m_NumIndices;
+	protected:
+		SPtr<Material> m_Material;
+		MeshData m_MeshData;
 
-public:
-	Mesh(const std::string& filepath);
-	~Mesh();
-	
-	void SetMaterial(SPtr<Material> material);
-	SPtr<Material> GetMaterial();
-	
-	VertexArray* GetVao();
-	unsigned int GetNumIndices();
-	unsigned int GetNumVertices();
-	
-};
+	public:
+		Mesh(const std::string& filepath);
+		~Mesh();
+		
+		void SetMaterial(SPtr<Material> material);
+		SPtr<Material> GetMaterial();
+		
+		VertexArray* GetVao();
+		unsigned int GetNumIndices();
+		unsigned int GetNumVertices();
+		
+	};
 }

@@ -99,17 +99,17 @@ void Material::LoadLights(std::array<Light, 3>& lights)
 
 }
 
-void Material::LoadModelMatrix(const Mat4& modelMat)
+void Material::LoadModelMatrix(const glm::mat4& modelMat)
 {
     shader->LoadMat4(loc_modelMatrix, modelMat);
 }
 
-void Material::LoadProjectionMatrix(const Mat4& projectionMat)
+void Material::LoadProjectionMatrix(const glm::mat4& projectionMat)
 {
     shader->LoadMat4(loc_projectionMatrix, projectionMat);
 }
 
-void Material::LoadViewMatrix(const Mat4& viewMat)
+void Material::LoadViewMatrix(const glm::mat4& viewMat)
 {
     shader->LoadMat4(loc_viewMatrix, viewMat);
 }

@@ -10,7 +10,7 @@ public:
     static void ShutDown();
 
     static void ErrorCheck();
-    static void ClearScreen(const Vec3& color);
+    static void ClearScreen(const glm::vec3& color);
     static void ResizeViewport(float width, float height);
     static void SetBackFaceCulling(bool flag);
     static void SetWireFrameMode(bool flag);

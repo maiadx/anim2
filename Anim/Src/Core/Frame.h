@@ -20,8 +20,8 @@ namespace Anim
         Frame();
         ~Frame();
 
-        void CreateSphere(Vec3& position, Vec3& color, float scale);
-        void CreateLight(const Vec3& pos, const Vec3& color, uint32_t slot);    
+        void CreateSphere(glm::vec3& position, glm::vec3& color, float scale);
+        void CreateLight(const glm::vec3& pos, const glm::vec3& color, uint32 slot);    
         void ClearFrame();
 
         std::vector<SphereData>& GetSpheres();

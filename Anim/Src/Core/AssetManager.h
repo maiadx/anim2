@@ -7,17 +7,12 @@
 #include "Renderer/Window.h"
 #include "Renderer/Data/VertexArray.h"
 #include "Renderer/RenderObjects/Mesh.h"
+
 /* using singleton schenanagans to control file-loading,
     allows us to avoid loading duplicate assets with map refs to filepaths. */
+
 namespace Anim
 {
-    struct MeshData
-    {
-        VertexArray* Vao;
-        uint32 NumIndices;
-        uint32 NumVertices;
-    };
-
     class AssetManager
     {
         unsigned int m_CurrentID;                                  /* non-uuid incrementing ID for each asset */

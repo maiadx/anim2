@@ -20,7 +20,7 @@ class Renderer
     Window m_Window;
     Frame* m_CurrentFrame;
     Camera* m_Camera;
-    Vec3 m_BgColor;
+    glm::vec3 m_BgColor;
 
     Renderer(int sWidth, int sHeight, const std::string& wTitle);
 
@@ -37,7 +37,7 @@ public:
     static Camera* GetCamera();
     static Material& GetDefaultMaterial();
 
-    static void SetBackgroundColor(const Vec3& color);
+    static void SetBackgroundColor(const glm::vec3& color);
     static void SetWindowSize(float width, float height);
 
     static void Begin();

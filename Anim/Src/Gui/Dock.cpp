@@ -127,20 +127,21 @@ void Dock::ShowSidePanel(Frame& frame, float dt)
     ImGui::Text((const char*)glGetString(GL_VERSION));
     ImGui::Text("Frame Time: %.2fs", dt);
     ImGui::Text(" ");
-    if(ImGui::CollapsingHeader("Scene"))
-    {
-        ShowFrameSubPanel(frame);
-    }
+    
+    // if(ImGui::CollapsingHeader("Scene"))
+    // {
+    //     ShowFrameSubPanel(frame);
+    // }
 
-    if(ImGui::CollapsingHeader("Plots"))
-    {
-        ShowPlotSubPanel();
-    }
+    // if(ImGui::CollapsingHeader("Plots"))
+    // {
+    //     ShowPlotSubPanel();
+    // }
 
-    if(ImGui::CollapsingHeader("Shaders"))
-    {
+    // if(ImGui::CollapsingHeader("Shaders"))
+    // {
 
-    }
+    // }
 
     ImGui::End();
 }

@@ -20,8 +20,8 @@ public:
     unsigned int GetNumObjects();
     unsigned int GetNumWorkGroups();
 
-    void SetViewMatrix(const Mat4& viewMat);
-    void SetProjMatrix(const Mat4& projMat);
+    void SetViewMatrix(const glm::mat4& viewMat);
+    void SetProjMatrix(const glm::mat4& projMat);
 
 private:
     unsigned int csProgID;

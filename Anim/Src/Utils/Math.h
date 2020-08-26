@@ -8,16 +8,6 @@
     for platform-specific optimized ones, but it also looks nicer. :)
 */
 
-namespace Anim
-{   
-    using Vec2 = glm::vec2;
-    using Vec3 = glm::vec3;
-    using Vec4 = glm::vec4;
-    using Mat2 = glm::mat2;
-    using Mat3 = glm::mat3;
-    using Mat4 = glm::mat4;
-}
-
 namespace Math 
 {
 inline float Max(float a, float b)
@@ -40,7 +30,7 @@ inline float ToRadians(float degrees)
 }
 
 /* rotation needs to be in degrees */
-static const Anim::Mat4 CreateTransformationMatrix(Anim::Vec3& translation, Anim::Vec3& rotation, float scale)
+static const glm::mat4 CreateTransformationMatrix(glm::vec3& translation, glm::vec3& rotation, float scale)
 {
     glm::mat4 transform = glm::mat4(1.0f);                               /* identity matrix */
     transform = glm::translate(transform, translation);                 /* apply translation */
@@ -54,7 +44,7 @@ static const Anim::Mat4 CreateTransformationMatrix(Anim::Vec3& translation, Anim
     return transform;
 }
 
-static Anim::Mat4 GenerateViewMatrix(const Anim::Vec3& cameraPosition, const Anim::Vec3& cameraAngle)
+static glm::mat4 GenerateViewMatrix(const glm::vec3& cameraPosition, const glm::vec3& cameraAngle)
 {
     glm::mat4 viewMat = glm::mat4(1.0f);                                                         /* (in radians) */
     viewMat = glm::rotate(viewMat, cameraAngle.x, glm::vec3(1.0f, 0.0f, 0.0f));                  /* pitch */

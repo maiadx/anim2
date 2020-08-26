@@ -10,7 +10,7 @@ namespace Anim
 class Material
 {
     SPtr<Shader> shader;
-	Vec3 baseColor;
+	glm::vec3 baseColor;
     float reflectivity;
     float shineDamper;
 
@@ -37,9 +37,9 @@ public:
     void Bind();
     void Unbind();
 
-    Vec3& GetBaseColor();
-    void SetBaseColor(const Vec3& baseColor);
-    void LoadColor(const Vec3& color);
+    glm::vec3& GetBaseColor();
+    void SetBaseColor(const glm::vec3& baseColor);
+    void LoadColor(const glm::vec3& color);
 
     float GetReflectivity();
     void SetReflectivity(float reflectivity);
@@ -48,8 +48,8 @@ public:
 
     void LoadLights(std::array<Light, 3>& lights);
 
-    void LoadModelMatrix(const Mat4& modelMat);
-    void LoadProjectionMatrix(const Mat4& projectionMat);
-    void LoadViewMatrix(const Mat4& viewMat);
+    void LoadModelMatrix(const glm::mat4& modelMat);
+    void LoadProjectionMatrix(const glm::mat4& projectionMat);
+    void LoadViewMatrix(const glm::mat4& viewMat);
 };
 }

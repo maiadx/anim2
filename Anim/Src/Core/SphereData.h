@@ -5,7 +5,7 @@ namespace Anim
 {
     struct SphereData
     {
-        Vec3 Color; 
-        Mat4 Transform;     /* spheres's position + size in 3D space */
+        glm::vec3 Color; 
+        glm::mat4 Transform;     /* spheres's position + size in 3D space */
     };
 }

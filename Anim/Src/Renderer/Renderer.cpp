@@ -23,7 +23,7 @@ Camera* Renderer::GetCamera()
     return Instance().m_Camera;
 }
 
-void Renderer::SetBackgroundColor(const Vec3& color)
+void Renderer::SetBackgroundColor(const glm::vec3& color)
 {
     Instance().m_BgColor = color;
 }
