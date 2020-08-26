@@ -134,9 +134,6 @@ void Application::RunCommand(std::vector<std::string>& inputCmd)
 /* input redirected from stdio */
 void Application::ScanInput()
 {
-  	// if (fgets(line,299, stdin) == NULL) {} // to make the compiler happy; we don't really care
-    // if (feof(stdin)) {usleep(1000);return;}
-
     std::string input;
 
     std::getline(std::cin, input);
