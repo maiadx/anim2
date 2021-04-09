@@ -10,5 +10,6 @@ Example C file is in Examples/
 
 To build example C simulation:
     `gcc -lm example.c -o exampleProgram`
+    
 then to run the program:
     `./exampleProgram | anim2`
